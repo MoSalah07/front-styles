@@ -1,0 +1,39 @@
+{
+  "$schema": "../brand.schema.json",
+  "name": "crimson",
+  "label": "Crimson",
+  "default": true,
+  "description": "Cinematic dark-first identity: signal red on true black, sharp corners, bold type.",
+  "seed": "#E50914",
+  "status": {
+    "success": "#12B76A",
+    "warning": "#F79009",
+    "danger": "#D92D20",
+    "info": "#2E90FA"
+  },
+  "neutral": {
+    "tint": 0,
+    "anchors": {
+      "100": "#F3F3F3",
+      "200": "#E5E5E5",
+      "400": "#B3B3B3",
+      "500": "#808080",
+      "700": "#454545",
+      "800": "#2F2F2F",
+      "850": "#222222",
+      "900": "#181818",
+      "950": "#141414"
+    }
+  },
+  "radius": "0.25rem",
+  "fonts": {
+    "body": "\"Inter\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "ar": "\"Cairo\", \"Segoe UI\", Tahoma, Arial, sans-serif",
+    "title": "\"Bebas Neue\", \"Inter\", ui-sans-serif, system-ui, sans-serif",
+    "code": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+  },
+  "overrides": {
+    "light": {},
+    "dark": {}
+  }
+}

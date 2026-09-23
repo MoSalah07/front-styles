@@ -1,0 +1,31 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "design-eg documentation site and component playground.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@design-eg/tokens": "workspace:*",
+    "@design-eg/ui": "workspace:*",
+    "lucide-react": "catalog:",
+    "next": "^16.3.6",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@design-eg/registry": "workspace:*",
+    "@design-eg/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}

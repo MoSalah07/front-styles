@@ -1,0 +1,30 @@
+{
+  "name": "design-eg-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "design-eg — an open-source React design system: tokens, primitives, blocks, templates and a CLI. Tailwind v4, Radix, RTL-first.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,mjs,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mjs,json,css,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=./packages/* && changeset publish",
+    "clean": "turbo run clean && node -e \"require('fs').rmSync('node_modules',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "prettier": "^3.9.8",
+    "turbo": "^2.11.3",
+    "typescript": "catalog:"
+  }
+}

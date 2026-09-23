@@ -1,0 +1,8 @@
+{
+  "extends": "@design-eg/typescript-config/node-library.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": ["dist/index.d.ts"]
+}

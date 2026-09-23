@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "design-eg brand seed",
+  "type": "object",
+  "required": ["name", "seed"],
+  "properties": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "label": { "type": "string" },
+    "default": { "type": "boolean" },
+    "description": { "type": "string" },
+    "seed": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$",
+      "description": "Identity colour. Becomes --brand and the primary colour unless overridden."
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "success": { "type": "string" },
+        "warning": { "type": "string" },
+        "danger": { "type": "string" },
+        "info": { "type": "string" }
+      }
+    },
+    "neutral": {
+      "type": "object",
+      "properties": {
+        "tint": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.03,
+          "description": "OKLCH chroma applied to the grey ramp using the seed hue. 0 = pure grey."
+        },
+        "anchors": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Exact hex values pinned to specific neutral steps."
+        }
+      }
+    },
+    "radius": { "type": "string" },
+    "fonts": {
+      "type": "object",
+      "properties": {
+        "body": { "type": "string" },
+        "ar": { "type": "string" },
+        "title": { "type": "string" },
+        "code": { "type": "string" }
+      }
+    },
+    "overrides": {
+      "type": "object",
+      "description": "Semantic token overrides per mode. Values are token refs like {brand}, {brand.+1}, {neutral.900}, {on:brand}, {neutral.0 @ 0.1} or raw CSS colours.",
+      "properties": {
+        "light": { "type": "object", "additionalProperties": { "type": "string" } },
+        "dark": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    }
+  }
+}

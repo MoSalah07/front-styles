@@ -1,0 +1,4 @@
+{
+  "extends": "@design-eg/typescript-config/node-library.json",
+  "include": ["src", "tsdown.config.ts"]
+}

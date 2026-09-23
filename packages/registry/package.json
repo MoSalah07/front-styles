@@ -1,0 +1,14 @@
+{
+  "name": "@design-eg/registry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Builds the shadcn-compatible JSON registry from packages/ui sources into apps/docs/public/r.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "clean": "node -e \"require('fs').rmSync('../../apps/docs/public/r',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "@design-eg/ui": "workspace:*"
+  }
+}

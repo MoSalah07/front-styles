@@ -1,0 +1,91 @@
+/* ------------------------------------------------------------------------
+   design-eg | static primitives (brand-independent)
+
+   NAMING RULE: nothing in this file may use a Tailwind v4 theme namespace
+   (--color-*, --font-*, --text-*, --leading-*, --tracking-*, --radius-*,
+   --shadow-*, --ease-*, --container-*, --blur-*, --animate-*, --breakpoint-*).
+   Mapping a theme key onto a raw token of the same name is circular. Constants
+   that belong to a namespace are declared once inside @theme in tailwind.css,
+   which emits them to :root for us.
+   ------------------------------------------------------------------------ */
+:root {
+  /* Spacing: Tailwind's spacing scale is multiplied from --space-unit */
+  --space-unit: 0.25rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-y: clamp(3rem, 6vw, 6rem);
+  --card-p: 1.5rem;
+
+  /* Font weights (Tailwind's namespace is --font-weight-*, so these are safe) */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Arabic renders smaller at the same px size and needs more leading */
+  --font-scale-ar: 1.06;
+  --lh-ar-body: 1.85;
+
+  /* Motion */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* Z-index: closed scale; never write a literal z-index in a component */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+
+  /* Breakpoints (informational; Tailwind owns the media queries) */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+
+  /* Component knobs */
+  --density-scale: 1;
+  --control-h-sm: calc(2rem * var(--density-scale));
+  --control-h-md: calc(2.5rem * var(--density-scale));
+  --control-h-lg: calc(3rem * var(--density-scale));
+  --tap-min: 44px;
+  --header-h: 4rem;
+  --sidebar-w: 16rem;
+  --sidebar-w-collapsed: 3.5rem;
+  --icon-xs: 0.875rem;
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+  --icon-stroke: 1.75;
+  --glass-blur: 20px;
+  --scrim-blur: 8px;
+  --focus-ring-w: 2px;
+  --focus-ring-offset: 2px;
+}
+
+[data-density="compact"] {
+  --density-scale: 0.875;
+}
+[data-density="comfortable"] {
+  --density-scale: 1;
+}
+[data-density="spacious"] {
+  --density-scale: 1.125;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}

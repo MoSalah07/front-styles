@@ -20,19 +20,29 @@ function exportsOf(source) {
   const values = new Set();
   const types = new Set();
 
-  // export { A, B, type C }
-  for (const m of source.matchAll(/export\s*\{([^}]*)\}\s*;/g)) {
-    for (const raw of m[1].split(",")) {
+  // export { A, B, type C }  and  export type { A, B }
+  // The `type` keyword may sit outside the braces, in which case every name in
+  // the list is a type. Missing that case exports a type as a value and breaks
+  // the build at the import site.
+  for (const m of source.matchAll(/export\s+(type\s+)?\{([^}]*)\}\s*;/g)) {
+    const allTypes = Boolean(m[1]);
+    for (const raw of m[2].split(",")) {
       const part = raw.trim();
       if (!part) continue;
-      const isType = /^type\s+/.test(part);
-      const name = part.replace(/^type\s+/, "").split(/\s+as\s+/).pop().trim();
+      const isType = allTypes || /^type\s+/.test(part);
+      const name = part
+        .replace(/^type\s+/, "")
+        .split(/\s+as\s+/)
+        .pop()
+        .trim();
       if (!name) continue;
       (isType ? types : values).add(name);
     }
   }
   // export function / const / class
-  for (const m of source.matchAll(/export\s+(?:async\s+)?(?:function|const|let|class)\s+([A-Za-z0-9_$]+)/g)) {
+  for (const m of source.matchAll(
+    /export\s+(?:async\s+)?(?:function|const|let|class)\s+([A-Za-z0-9_$]+)/g,
+  )) {
     values.add(m[1]);
   }
   // export interface / type / enum

@@ -5,13 +5,13 @@ several people in parallel looking like one library.
 
 ## Where files go
 
-| What | Path | Registry type |
-| --- | --- | --- |
-| Primitive (Button, Dialog) | `packages/ui/src/components/<name>.tsx` | `registry:ui` |
-| Composite block (PricingTable, DataTable) | `packages/ui/src/blocks/<name>.tsx` | `registry:block` |
-| Whole page (LoginSplit, DashboardShell) | `packages/ui/src/templates/<name>.tsx` | `registry:block` |
-| Hook | `packages/ui/src/hooks/<name>.ts` | `registry:hook` |
-| Test | `<same folder>/<name>.test.tsx` | not published |
+| What                                      | Path                                    | Registry type    |
+| ----------------------------------------- | --------------------------------------- | ---------------- |
+| Primitive (Button, Dialog)                | `packages/ui/src/components/<name>.tsx` | `registry:ui`    |
+| Composite block (PricingTable, DataTable) | `packages/ui/src/blocks/<name>.tsx`     | `registry:block` |
+| Whole page (LoginSplit, DashboardShell)   | `packages/ui/src/templates/<name>.tsx`  | `registry:block` |
+| Hook                                      | `packages/ui/src/hooks/<name>.ts`       | `registry:hook`  |
+| Test                                      | `<same folder>/<name>.test.tsx`         | not published    |
 
 File names are kebab-case. Exported components are PascalCase.
 
@@ -59,15 +59,15 @@ Rules embedded in that template:
 
 **Use tokens, never raw values.**
 
-| Never | Always |
-| --- | --- |
-| `bg-[#e50914]`, `bg-red-600` | `bg-primary`, `bg-destructive`, `bg-brand-600` |
-| `z-50` | `z-(--z-modal)`, `z-(--z-popover)` |
-| `h-10` on a control | `h-(--control-h-md)` |
-| `rounded-lg` on a card | `rounded-card` |
-| `ml-2`, `pr-4`, `left-0`, `text-left` | `ms-2`, `pe-4`, `start-0`, `text-start` |
-| `duration-150` | `duration-(--duration-fast)` |
-| `shadow-md` | `shadow-1`, `shadow-2`, `shadow-3` |
+| Never                                 | Always                                         |
+| ------------------------------------- | ---------------------------------------------- |
+| `bg-[#e50914]`, `bg-red-600`          | `bg-primary`, `bg-destructive`, `bg-brand-600` |
+| `z-50`                                | `z-(--z-modal)`, `z-(--z-popover)`             |
+| `h-10` on a control                   | `h-(--control-h-md)`                           |
+| `rounded-lg` on a card                | `rounded-card`                                 |
+| `ml-2`, `pr-4`, `left-0`, `text-left` | `ms-2`, `pe-4`, `start-0`, `text-start`        |
+| `duration-150`                        | `duration-(--duration-fast)`                   |
+| `shadow-md`                           | `shadow-1`, `shadow-2`, `shadow-3`             |
 
 Logical properties are not optional. The library is RTL-first, and a single
 `ml-2` breaks Arabic layouts. Use `ms/me`, `ps/pe`, `start/end`, `text-start`,

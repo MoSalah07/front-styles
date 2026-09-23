@@ -216,12 +216,22 @@
   --container-content: 80rem;
   --container-wide: 90rem;
 
-  /* Animations */
+  /* Animations.
+     Overlay enter/exit pairs exist because Radix's Presence waits for an
+     animationend before unmounting: a CSS transition alone closes the element
+     with no exit animation. Accordion and collapsible consume the
+     --radix-*-content-height variable the primitive sets. */
   --animate-fade-in: fade-in 300ms var(--ease-entrance) both;
   --animate-fade-up: fade-up 500ms var(--ease-entrance) both;
+  --animate-fade-out: fade-out 150ms var(--ease-exit) both;
   --animate-scale-in: scale-in 200ms var(--ease-entrance) both;
+  --animate-scale-out: scale-out 150ms var(--ease-exit) both;
   --animate-shimmer: shimmer 1.6s linear infinite;
   --animate-spin-slow: spin 3s linear infinite;
+  --animate-accordion-down: accordion-down 200ms var(--ease-entrance) both;
+  --animate-accordion-up: accordion-up 200ms var(--ease-exit) both;
+  --animate-collapsible-down: collapsible-down 200ms var(--ease-entrance) both;
+  --animate-collapsible-up: collapsible-up 200ms var(--ease-exit) both;
 
   @keyframes fade-in {
     from {
@@ -257,6 +267,64 @@
     }
     to {
       background-position: -200% 0;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes scale-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+      opacity: 1;
+    }
+  }
+  @keyframes collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
     }
   }
 }

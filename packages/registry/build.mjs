@@ -28,7 +28,12 @@ function externalDeps(source) {
   for (const m of source.matchAll(IMPORT_RE)) {
     const spec = m[1];
     if (spec.startsWith(".") || spec.startsWith("@/")) continue;
-    if (spec === "react" || spec === "react-dom" || spec.startsWith("react/") || spec.startsWith("react-dom/"))
+    if (
+      spec === "react" ||
+      spec === "react-dom" ||
+      spec.startsWith("react/") ||
+      spec.startsWith("react-dom/")
+    )
       continue;
     const pkg = spec.startsWith("@") ? spec.split("/").slice(0, 2).join("/") : spec.split("/")[0];
     deps.add(pkg);
@@ -95,12 +100,19 @@ items.push({
   title: "Utils",
   description: "cn() helper: clsx + tailwind-merge.",
   dependencies: externalDeps(cnSource),
-  files: [{ path: "lib/utils.ts", type: "registry:lib", content: cnSource, target: "lib/utils.ts" }],
+  files: [
+    { path: "lib/utils.ts", type: "registry:lib", content: cnSource, target: "lib/utils.ts" },
+  ],
 });
 
 const GROUPS = [
   { dir: "components", ext: ".tsx", type: "registry:ui", target: (n) => `components/ui/${n}.tsx` },
-  { dir: "blocks", ext: ".tsx", type: "registry:block", target: (n) => `components/blocks/${n}.tsx` },
+  {
+    dir: "blocks",
+    ext: ".tsx",
+    type: "registry:block",
+    target: (n) => `components/blocks/${n}.tsx`,
+  },
   {
     dir: "templates",
     ext: ".tsx",

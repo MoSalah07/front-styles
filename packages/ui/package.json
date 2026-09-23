@@ -30,12 +30,13 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsdown && node scripts/copy-styles.mjs",
+    "build": "node scripts/gen-barrel.mjs && tsdown && node scripts/copy-styles.mjs",
     "dev": "tsdown --watch",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "barrel": "node scripts/gen-barrel.mjs"
   },
   "keywords": [
     "react",
@@ -57,12 +58,40 @@
     "access": "public"
   },
   "peerDependencies": {
+    "@hookform/resolvers": ">=5",
+    "cmdk": ">=1",
+    "input-otp": ">=1.4",
     "react": ">=19",
     "react-dom": ">=19",
-    "tailwindcss": ">=4"
+    "react-hook-form": ">=7.60",
+    "recharts": ">=3",
+    "sonner": ">=2",
+    "tailwindcss": ">=4",
+    "zod": ">=4"
   },
   "peerDependenciesMeta": {
+    "@hookform/resolvers": {
+      "optional": true
+    },
+    "cmdk": {
+      "optional": true
+    },
+    "input-otp": {
+      "optional": true
+    },
+    "react-hook-form": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    },
+    "sonner": {
+      "optional": true
+    },
     "tailwindcss": {
+      "optional": true
+    },
+    "zod": {
       "optional": true
     }
   },
@@ -75,17 +104,24 @@
   },
   "devDependencies": {
     "@design-eg/typescript-config": "workspace:*",
+    "@hookform/resolvers": "^5.9.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^6.1.1",
+    "cmdk": "^1.1.1",
+    "input-otp": "^1.5.0",
     "jsdom": "^30.1.1",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-hook-form": "^7.88.0",
+    "recharts": "^3.10.1",
+    "sonner": "^2.0.8",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "zod": "^4.6.5"
   }
 }

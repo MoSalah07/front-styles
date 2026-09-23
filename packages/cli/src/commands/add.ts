@@ -15,20 +15,40 @@ interface AddOptions {
   install: boolean;
 }
 
+/**
+ * Where a registry file lands in the consumer's project.
+ *
+ * Registry items carry a canonical `target` (components/ui/button.tsx) so that
+ * `npx shadcn add` places them predictably. Our own CLI additionally rebases
+ * that canonical prefix onto whatever folders the project configured, so a
+ * project using src/app/_components still gets its files in the right place.
+ */
 function targetFor(
   file: RegistryFile,
   item: RegistryItem,
   paths: { ui: string; lib: string; hooks: string },
 ) {
-  if (file.target) return file.target;
-  const name = basename(file.path);
+  const name = basename(file.target ?? file.path);
+  const blocksRoot = join(paths.ui, "..", "blocks");
+  const templatesRoot = join(paths.ui, "..", "templates");
+
+  if (file.target) {
+    const t = file.target.replace(/\\/g, "/");
+    if (t.startsWith("components/ui/")) return join(paths.ui, name);
+    if (t.startsWith("components/blocks/")) return join(blocksRoot, name);
+    if (t.startsWith("components/templates/")) return join(templatesRoot, name);
+    if (t.startsWith("lib/")) return join(paths.lib, name);
+    if (t.startsWith("hooks/")) return join(paths.hooks, name);
+    return file.target;
+  }
+
   switch (file.type ?? item.type) {
     case "registry:lib":
       return join(paths.lib, name);
     case "registry:hook":
       return join(paths.hooks, name);
     case "registry:block":
-      return join(paths.ui, "..", "blocks", name);
+      return join(blocksRoot, name);
     default:
       return join(paths.ui, name);
   }

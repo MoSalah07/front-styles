@@ -13,10 +13,17 @@
   "dependencies": {
     "@design-eg/tokens": "workspace:*",
     "@design-eg/ui": "workspace:*",
+    "@hookform/resolvers": "^5.9.1",
+    "cmdk": "^1.1.1",
+    "input-otp": "^1.5.0",
     "lucide-react": "catalog:",
     "next": "^16.3.6",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-hook-form": "^7.88.0",
+    "recharts": "^3.10.1",
+    "sonner": "^2.0.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@design-eg/registry": "workspace:*",

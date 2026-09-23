@@ -1,9 +1,16 @@
 /**
  * Registry builder
- * Reads packages/ui/src/components/*.tsx and emits shadcn-compatible registry items
- * into apps/docs/public/r/<name>.json plus an index at registry.json.
+ *
+ * Reads packages/ui/src and emits shadcn-compatible registry items into
+ * apps/docs/public/r/<name>.json, plus an index at registry.json.
+ *
+ *   src/components/*.tsx -> registry:ui     -> components/ui/<name>.tsx
+ *   src/blocks/*.tsx     -> registry:block  -> components/blocks/<name>.tsx
+ *   src/templates/*.tsx  -> registry:block  -> components/templates/<name>.tsx
+ *   src/hooks/*.ts       -> registry:hook   -> hooks/<name>.ts
+ *   src/lib/cn.ts        -> registry:lib    -> lib/utils.ts
  */
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -14,13 +21,14 @@ const outDir = join(repo, "apps/docs/public/r");
 const uiPkg = JSON.parse(readFileSync(join(repo, "packages/ui/package.json"), "utf8"));
 const HOMEPAGE = "https://design-eg.vercel.app";
 
-const IMPORT_RE = /import\s+(?:[^'"]+\s+from\s+)?["']([^"']+)["']/g;
+const IMPORT_RE = /(?:import|export)\s+(?:[^'"]*?\s+from\s+)?["']([^"']+)["']/g;
 
 function externalDeps(source) {
   const deps = new Set();
   for (const m of source.matchAll(IMPORT_RE)) {
     const spec = m[1];
-    if (spec.startsWith(".") || spec.startsWith("@/") || spec === "react" || spec === "react-dom")
+    if (spec.startsWith(".") || spec.startsWith("@/")) continue;
+    if (spec === "react" || spec === "react-dom" || spec.startsWith("react/") || spec.startsWith("react-dom/"))
       continue;
     const pkg = spec.startsWith("@") ? spec.split("/").slice(0, 2).join("/") : spec.split("/")[0];
     deps.add(pkg);
@@ -28,23 +36,35 @@ function externalDeps(source) {
   return [...deps].sort();
 }
 
-function siblingDeps(source) {
-  const deps = new Set();
+/** Relative sibling imports become registry dependencies so the CLI pulls them too. */
+function registryDeps(source) {
+  const deps = new Set(["utils"]);
   for (const m of source.matchAll(IMPORT_RE)) {
     const spec = m[1];
-    if (spec.startsWith("./")) deps.add(basename(spec).replace(/\.tsx?$/, ""));
+    if (!spec.startsWith(".")) continue;
+    const name = basename(spec).replace(/\.(tsx?|jsx?)$/, "");
+    if (name === "cn" || name === "utils") continue;
+    deps.add(name);
   }
   return [...deps].sort();
 }
 
+/**
+ * Rewrites workspace-relative imports to the aliases a consumer project uses.
+ * Order matters: the lib rewrite must run before the generic sibling rewrite.
+ */
 function rewriteImports(source) {
   return source
-    .replace(/from\s+["']\.\.\/lib\/cn["']/g, 'from "@/lib/utils"')
-    .replace(/from\s+["']\.\/([a-z0-9-]+)["']/g, 'from "@/components/ui/$1"');
+    .replace(/(["'])(?:\.\.?\/)*lib\/cn\1/g, '"@/lib/utils"')
+    .replace(/(["'])(?:\.\.?\/)*hooks\/([a-z0-9-]+)\1/g, '"@/hooks/$2"')
+    .replace(/(["'])(?:\.\.\/)+components\/([a-z0-9-]+)\1/g, '"@/components/ui/$2"')
+    .replace(/(["'])(?:\.\.\/)+blocks\/([a-z0-9-]+)\1/g, '"@/components/blocks/$2"')
+    .replace(/(["'])(?:\.\.\/)+templates\/([a-z0-9-]+)\1/g, '"@/components/templates/$2"')
+    .replace(/(["'])\.\/([a-z0-9-]+)\1/g, '"@/components/ui/$2"');
 }
 
 function titleCase(name) {
-  return name.replace(/(^|-)([a-z])/g, (_, _s, c) => (_s ? " " : "") + c.toUpperCase());
+  return name.replace(/(^|-)([a-z])/g, (_, sep, c) => (sep ? " " : "") + c.toUpperCase());
 }
 
 /**
@@ -68,36 +88,56 @@ const items = [];
 
 // utils (cn helper) — every component depends on it
 const cnSource = readFileSync(join(uiSrc, "lib/cn.ts"), "utf8");
-const utils = {
+items.push({
   $schema: "https://ui.shadcn.com/schema/registry-item.json",
   name: "utils",
   type: "registry:lib",
   title: "Utils",
   description: "cn() helper: clsx + tailwind-merge.",
   dependencies: externalDeps(cnSource),
-  files: [
-    { path: "lib/utils.ts", type: "registry:lib", content: cnSource, target: "lib/utils.ts" },
-  ],
-};
-items.push(utils);
+  files: [{ path: "lib/utils.ts", type: "registry:lib", content: cnSource, target: "lib/utils.ts" }],
+});
 
-// components
-const files = readdirSync(join(uiSrc, "components")).filter(
-  (f) => f.endsWith(".tsx") && !f.includes(".test."),
-);
-for (const file of files) {
-  const name = file.replace(/\.tsx$/, "");
-  const source = readFileSync(join(uiSrc, "components", file), "utf8");
-  items.push({
-    $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name,
-    type: "registry:ui",
-    title: titleCase(name),
-    description: fileDocComment(source) || `${titleCase(name)} component from design-eg.`,
-    dependencies: externalDeps(source),
-    registryDependencies: ["utils", ...siblingDeps(source)],
-    files: [{ path: `ui/${file}`, type: "registry:ui", content: rewriteImports(source) }],
-  });
+const GROUPS = [
+  { dir: "components", ext: ".tsx", type: "registry:ui", target: (n) => `components/ui/${n}.tsx` },
+  { dir: "blocks", ext: ".tsx", type: "registry:block", target: (n) => `components/blocks/${n}.tsx` },
+  {
+    dir: "templates",
+    ext: ".tsx",
+    type: "registry:block",
+    target: (n) => `components/templates/${n}.tsx`,
+  },
+  { dir: "hooks", ext: ".ts", type: "registry:hook", target: (n) => `hooks/${n}.ts` },
+];
+
+for (const group of GROUPS) {
+  const abs = join(uiSrc, group.dir);
+  if (!existsSync(abs)) continue;
+  const files = readdirSync(abs)
+    .filter((f) => f.endsWith(group.ext) && !f.includes(".test.") && !f.includes(".stories."))
+    .sort();
+
+  for (const file of files) {
+    const name = file.replace(new RegExp(`\\${group.ext}$`), "");
+    const source = readFileSync(join(abs, file), "utf8");
+    items.push({
+      $schema: "https://ui.shadcn.com/schema/registry-item.json",
+      name,
+      type: group.type,
+      title: titleCase(name),
+      description: fileDocComment(source) || `${titleCase(name)} from design-eg.`,
+      dependencies: externalDeps(source),
+      registryDependencies: registryDeps(source),
+      files: [
+        {
+          path: group.target(name),
+          type: group.type,
+          content: rewriteImports(source),
+          target: group.target(name),
+        },
+      ],
+    });
+  }
 }
 
 for (const item of items) {
@@ -109,12 +149,17 @@ const index = {
   name: "design-eg",
   homepage: HOMEPAGE,
   version: uiPkg.version,
-  items: items.map(({ files: _f, ...rest }) => ({
+  items: items.map(({ files, ...rest }) => ({
     ...rest,
-    files: _f.map(({ content: _c, ...f }) => f),
+    files: files.map(({ content, ...f }) => f),
   })),
 };
 writeFileSync(join(outDir, "registry.json"), JSON.stringify(index, null, 2));
 writeFileSync(join(outDir, "index.json"), JSON.stringify(index.items.map((i) => i.name)));
 
-console.log(`registry: ${items.length} items -> apps/docs/public/r`);
+const byType = items.reduce((acc, i) => ({ ...acc, [i.type]: (acc[i.type] ?? 0) + 1 }), {});
+console.log(
+  `registry: ${items.length} items -> apps/docs/public/r  (${Object.entries(byType)
+    .map(([t, n]) => `${t.replace("registry:", "")} ${n}`)
+    .join(", ")})`,
+);

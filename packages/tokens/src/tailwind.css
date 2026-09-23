@@ -327,4 +327,14 @@
       opacity: 0;
     }
   }
+  /* The marquee track duplicates its children, so one pass is exactly half its
+     width. --marquee-to is set by the component and flipped under rtl:. */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(var(--marquee-to, -50%));
+    }
+  }
 }

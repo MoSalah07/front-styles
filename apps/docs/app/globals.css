@@ -8,12 +8,3 @@
   --font-title: var(--font-bebas), "Bebas Neue", var(--font-body);
   --font-code: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
 }
-
-/* Playground: visualise the dot grid behind the hero */
-@utility dot-grid {
-  background-image: radial-gradient(
-    color-mix(in oklab, var(--foreground) 12%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-}

@@ -235,3 +235,138 @@ export {
 } from "./components/toggle-group";
 export { Toggle, toggleVariants, type ToggleProps } from "./components/toggle";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/tooltip";
+
+// blocks
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+  type SidebarContextValue,
+  type SidebarMenuButtonProps,
+  type SidebarProps,
+  type SidebarProviderProps,
+  type SidebarState,
+  type SidebarTriggerProps,
+} from "./blocks/app-sidebar";
+export {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  useChart,
+  type ChartConfig,
+  type ChartContainerProps,
+  type ChartLegendContentProps,
+  type ChartPayloadItem,
+  type ChartSeriesConfig,
+  type ChartTooltipContentProps,
+} from "./blocks/chart";
+export { ConfirmDialog, type ConfirmDialogProps } from "./blocks/confirm-dialog";
+export { CtaBanner, type CtaBannerAlign, type CtaBannerProps } from "./blocks/cta-banner";
+export {
+  DataTable,
+  type DataTableAlign,
+  type DataTableColumn,
+  type DataTableProps,
+  type DataTableSort,
+  type DataTableSortDirection,
+  type DataTableValue,
+} from "./blocks/data-table";
+export { EmptyState, type EmptyStateProps } from "./blocks/empty-state";
+export { ErrorState, type ErrorStateProps } from "./blocks/error-state";
+export { Faq, type FaqItem, type FaqLayout, type FaqProps } from "./blocks/faq";
+export {
+  FeatureCard,
+  FeatureGrid,
+  type FeatureCardLink,
+  type FeatureCardProps,
+  type FeatureGridProps,
+} from "./blocks/feature-grid";
+export {
+  FilterBar,
+  FilterBarActions,
+  FilterBarChip,
+  FilterBarChips,
+  FilterBarSearch,
+  FilterBarSelect,
+  type FilterBarChipProps,
+  type FilterBarProps,
+  type FilterBarSearchProps,
+  type FilterBarSelectOption,
+  type FilterBarSelectProps,
+} from "./blocks/filter-bar";
+export {
+  Hero,
+  HeroActions,
+  HeroDescription,
+  HeroEyebrow,
+  HeroMedia,
+  HeroTitle,
+  type HeroDecoration,
+  type HeroProps,
+  type HeroVariant,
+} from "./blocks/hero";
+export {
+  LogoMarquee,
+  LogoMarqueeItem,
+  type LogoMarqueeItemProps,
+  type LogoMarqueeProps,
+} from "./blocks/logo-marquee";
+export {
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderDescription,
+  PageHeaderTitle,
+  type PageHeaderCrumb,
+  type PageHeaderProps,
+} from "./blocks/page-header";
+export {
+  PricingTable,
+  PricingTier,
+  type PricingPeriod,
+  type PricingTableProps,
+  type PricingTierProps,
+} from "./blocks/pricing-table";
+export {
+  SiteFooter,
+  type SiteFooterGroup,
+  type SiteFooterLink,
+  type SiteFooterProps,
+  type SiteFooterSocialLink,
+} from "./blocks/site-footer";
+export { SiteNavbar, type SiteNavbarLink, type SiteNavbarProps } from "./blocks/site-navbar";
+export {
+  AnimatedNumber,
+  StatBento,
+  StatBentoTile,
+  type AnimatedNumberProps,
+  type StatBentoProps,
+  type StatBentoTileProps,
+  type StatBentoTileSize,
+} from "./blocks/stat-bento";
+export {
+  StatCard,
+  StatCardGrid,
+  type StatCardGridProps,
+  type StatCardProps,
+  type StatCardTrend,
+} from "./blocks/stat-card";
+export {
+  TestimonialCard,
+  Testimonials,
+  type TestimonialAvatar,
+  type TestimonialCardProps,
+  type TestimonialsProps,
+  type TestimonialsVariant,
+} from "./blocks/testimonials";

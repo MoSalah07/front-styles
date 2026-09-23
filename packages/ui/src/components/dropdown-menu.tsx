@@ -2,48 +2,9 @@
 
 /** Menu opened from a button, with items, checkbox and radio items, labels, separators, shortcuts and nested submenus. */
 import * as React from "react";
+import { Check, ChevronRight, Circle } from "lucide-react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-/** Inline copies of the lucide `check`, `chevron-right` and `circle` glyphs: lucide-react is not a dependency of this package. */
-function IconBase(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    />
-  );
-}
-
-function CheckIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <IconBase {...props}>
-      <path d="M20 6 9 17l-5-5" />
-    </IconBase>
-  );
-}
-
-function ChevronRightIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <IconBase {...props}>
-      <path d="m9 18 6-6-6-6" />
-    </IconBase>
-  );
-}
-
-function CircleIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <IconBase fill="currentColor" {...props}>
-      <circle cx="12" cy="12" r="10" />
-    </IconBase>
-  );
-}
 
 /** Surface styles shared by Content and SubContent. */
 const menuSurface = [
@@ -161,7 +122,7 @@ function DropdownMenuCheckboxItem({
     >
       <span className="pointer-events-none absolute start-2 flex size-4 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
+          <Check className="size-4" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -195,7 +156,7 @@ function DropdownMenuRadioItem({
     >
       <span className="pointer-events-none absolute start-2 flex size-4 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <CircleIcon className="size-2" />
+          <Circle className="size-2" fill="currentColor" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -280,7 +241,7 @@ function DropdownMenuSubTrigger({
     >
       {children}
       {/* The chevron points into the submenu, which opens towards the left in RTL. */}
-      <ChevronRightIcon className="ms-auto size-4 rtl:-scale-x-100" />
+      <ChevronRight className="ms-auto size-4 rtl:-scale-x-100" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

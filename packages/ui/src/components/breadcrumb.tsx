@@ -1,44 +1,8 @@
 /** Trail of ancestor links ending in the current page. The separator chevron points along the reading direction. */
 import * as React from "react";
+import { ChevronRight, MoreHorizontal } from "lucide-react";
 import { Slot } from "radix-ui";
 import { cn } from "../lib/cn";
-
-/** Inline copies of the lucide glyphs: lucide-react is not a dependency of this package. */
-function ChevronRightIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
-
-function MoreHorizontalIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
-  );
-}
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -112,7 +76,7 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
       className={cn("[&>svg]:size-3.5 rtl:[&>svg]:rotate-180", className)}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? <ChevronRight />}
     </li>
   );
 }
@@ -126,7 +90,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span"
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
+      <MoreHorizontal className="size-4" />
       <span className="sr-only">More</span>
     </span>
   );

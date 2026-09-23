@@ -2,45 +2,9 @@
 
 /** Square checkbox with checked and indeterminate indicators, sized to sit inline with body text. */
 import * as React from "react";
+import { Check, Minus } from "lucide-react";
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-// Icon geometry mirrors lucide's `check` and `minus`. They are inlined because
-// `lucide-react` is not a dependency of this package and AGENTS.md forbids
-// adding one.
-function CheckIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function MinusIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M5 12h14" />
-    </svg>
-  );
-}
 
 export type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>;
 
@@ -65,8 +29,14 @@ function Checkbox({ className, ...props }: CheckboxProps) {
         data-slot="checkbox-indicator"
         className="group/indicator flex size-full items-center justify-center text-current"
       >
-        <CheckIcon className="size-3.5 group-data-[state=indeterminate]/indicator:hidden" />
-        <MinusIcon className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block" />
+        <Check
+          strokeWidth={3}
+          className="size-3.5 group-data-[state=indeterminate]/indicator:hidden"
+        />
+        <Minus
+          strokeWidth={3}
+          className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block"
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

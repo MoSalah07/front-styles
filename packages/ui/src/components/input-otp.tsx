@@ -2,27 +2,9 @@
 
 /** One-time-password field whose characters are split across individually styled slots. */
 import * as React from "react";
+import { Minus } from "lucide-react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { cn } from "../lib/cn";
-
-// Geometry mirrors lucide's `minus`. Inlined because `lucide-react` is not a
-// dependency of this package.
-function MinusIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M5 12h14" />
-    </svg>
-  );
-}
 
 export type InputOTPProps = React.ComponentProps<typeof OTPInput>;
 
@@ -96,7 +78,7 @@ function InputOTPSeparator({ className, ...props }: InputOTPSeparatorProps) {
       className={cn("flex items-center text-muted-foreground", className)}
       {...props}
     >
-      <MinusIcon className="size-4" />
+      <Minus className="size-4" />
     </div>
   );
 }

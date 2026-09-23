@@ -1,61 +1,8 @@
 /** Page navigation built from button styles, with previous/next arrows that turn to follow the reading direction. */
 import * as React from "react";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "../lib/cn";
 import { buttonVariants, type ButtonProps } from "./button";
-
-/** Inline copies of the lucide glyphs: lucide-react is not a dependency of this package. */
-function ChevronLeftIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m15 18-6-6 6-6" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
-
-function MoreHorizontalIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
-  );
-}
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -129,7 +76,7 @@ function PaginationPrevious({
       {...props}
     >
       {/* `rtl:rotate-180` turns "back" into "towards the start of the line". */}
-      <ChevronLeftIcon className="size-4 rtl:rotate-180" />
+      <ChevronLeft className="size-4 rtl:rotate-180" />
       {children ? <span className="hidden sm:block">{children}</span> : null}
     </PaginationLink>
   );
@@ -149,7 +96,7 @@ function PaginationNext({
       {...props}
     >
       {children ? <span className="hidden sm:block">{children}</span> : null}
-      <ChevronRightIcon className="size-4 rtl:rotate-180" />
+      <ChevronRight className="size-4 rtl:rotate-180" />
     </PaginationLink>
   );
 }
@@ -162,7 +109,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span"
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
+      <MoreHorizontal className="size-4" />
       <span className="sr-only">More pages</span>
     </span>
   );

@@ -54,6 +54,14 @@ if (!Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = () => {};
 }
 
+// input-otp polls document.elementFromPoint on a timer to position its fake
+// caret. jsdom has no layout, so the call is missing entirely, and because it
+// fires after the test body finishes it surfaces as an unhandled rejection that
+// fails the run even when every assertion passed.
+if (!document.elementFromPoint) {
+  document.elementFromPoint = () => null;
+}
+
 // Radix portals mount onto document.body; without an explicit cleanup, content
 // from one test stays in the DOM and the next getByRole matches two nodes.
 afterEach(() => {

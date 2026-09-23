@@ -2,18 +2,9 @@
 
 /** Set of mutually exclusive options, each rendered as a circle with a filled indicator. */
 import * as React from "react";
+import { Circle } from "lucide-react";
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-// Geometry mirrors lucide's `circle`, filled rather than stroked. Inlined
-// because `lucide-react` is not a dependency of this package.
-function CircleIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
 
 export type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive.Root>;
 
@@ -49,7 +40,7 @@ function RadioGroupItem({ className, ...props }: RadioGroupItemProps) {
         data-slot="radio-group-indicator"
         className="relative flex size-full items-center justify-center"
       >
-        <CircleIcon className="size-2 text-primary" />
+        <Circle className="size-2 text-primary" fill="currentColor" stroke="none" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );

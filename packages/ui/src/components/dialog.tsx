@@ -2,27 +2,9 @@
 
 /** Modal dialog centred over a dimming overlay, with header, footer and a close affordance in the inline-end corner. */
 import * as React from "react";
+import { X } from "lucide-react";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-/** Inline copy of the lucide `x` glyph: lucide-react is not a dependency of this package. */
-function XIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
 
 function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root {...props} />;
@@ -111,7 +93,7 @@ function DialogContent({
               "disabled:pointer-events-none",
             )}
           >
-            <XIcon className="size-4" />
+            <X className="size-4" />
           </DialogPrimitive.Close>
         ) : null}
       </DialogPrimitive.Content>

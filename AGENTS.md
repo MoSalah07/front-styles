@@ -104,7 +104,10 @@ Z-scale: `--z-base`, `--z-raised`, `--z-sticky`, `--z-dropdown`, `--z-overlay`,
 ## Dependencies
 
 Core deps (already installed): `radix-ui`, `class-variance-authority`, `clsx`,
-`tailwind-merge`.
+`tailwind-merge`, `lucide-react`.
+
+Import icons from `lucide-react` directly — never hand-inline a copy of a lucide
+glyph.
 
 Optional peers, already installed and declared, use freely where they fit:
 `cmdk` (command palette), `sonner` (toasts), `input-otp` (OTP field),

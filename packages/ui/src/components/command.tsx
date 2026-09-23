@@ -2,28 +2,10 @@
 
 /** Searchable command palette on cmdk, usable inline or inside a dialog as a spotlight-style launcher. */
 import * as React from "react";
+import { Search } from "lucide-react";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "../lib/cn";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
-
-/** Inline copy of the lucide `search` glyph: lucide-react is not a dependency of this package. */
-function SearchIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m21 21-4.34-4.34" />
-      <circle cx="11" cy="11" r="8" />
-    </svg>
-  );
-}
 
 export type CommandProps = React.ComponentProps<typeof CommandPrimitive>;
 
@@ -91,7 +73,7 @@ function CommandInput({
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
     <div data-slot="command-input-wrapper" className="flex items-center gap-2 border-b px-3">
-      <SearchIcon className="size-4 shrink-0 text-muted-foreground" />
+      <Search className="size-4 shrink-0 text-muted-foreground" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(

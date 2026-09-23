@@ -2,28 +2,10 @@
 
 /** Dialog that slides in from a screen edge; the `start` and `end` sides follow the reading direction, so they mirror in RTL. */
 import * as React from "react";
+import { X } from "lucide-react";
 import { Dialog as SheetPrimitive } from "radix-ui";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/cn";
-
-/** Inline copy of the lucide `x` glyph: lucide-react is not a dependency of this package. */
-function XIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
 
 const sheetVariants = cva(
   [
@@ -139,7 +121,7 @@ function SheetContent({
               "disabled:pointer-events-none",
             )}
           >
-            <XIcon className="size-4" />
+            <X className="size-4" />
           </SheetPrimitive.Close>
         ) : null}
       </SheetPrimitive.Content>

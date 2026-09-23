@@ -2,31 +2,9 @@
 
 /** Accessible dropdown select built on Radix, with a trigger on the control-height scale and a portalled listbox. */
 import * as React from "react";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { Select as SelectPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-// Geometry mirrors lucide's `check`, `chevron-down` and `chevron-up`. They are
-// inlined because `lucide-react` is not a dependency of this package.
-function ChevronIcon({ d, ...props }: React.ComponentProps<"svg"> & { d: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d={d} />
-    </svg>
-  );
-}
-
-const CHEVRON_DOWN = "m6 9 6 6 6-6";
-const CHEVRON_UP = "m18 15-6-6-6 6";
-const CHECK = "M20 6 9 17l-5-5";
 
 export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root>;
 
@@ -68,7 +46,7 @@ function SelectTrigger({ className, children, ...props }: SelectTriggerProps) {
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronIcon d={CHEVRON_DOWN} className="size-4 opacity-50" />
+        <ChevronDown className="size-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -83,7 +61,7 @@ function SelectScrollUpButton({ className, ...props }: SelectScrollUpButtonProps
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronIcon d={CHEVRON_UP} className="size-4" />
+      <ChevronUp className="size-4" />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -99,7 +77,7 @@ function SelectScrollDownButton({ className, ...props }: SelectScrollDownButtonP
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronIcon d={CHEVRON_DOWN} className="size-4" />
+      <ChevronDown className="size-4" />
     </SelectPrimitive.ScrollDownButton>
   );
 }
@@ -170,7 +148,7 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <span className="absolute end-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <ChevronIcon d={CHECK} className="size-4" />
+          <Check className="size-4" />
         </SelectPrimitive.ItemIndicator>
       </span>
     </SelectPrimitive.Item>

@@ -2,26 +2,9 @@
 
 /** Vertically stacked disclosure sections; the open panel animates its height and its chevron flips. */
 import * as React from "react";
+import { ChevronDown } from "lucide-react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
-
-/** Inline copy of the lucide `chevron-down` glyph: lucide-react is not a dependency of this package. */
-function ChevronDownIcon(props: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 export type AccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
 
@@ -62,7 +45,7 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDownIcon
+        <ChevronDown
           data-slot="accordion-chevron"
           className={cn(
             "pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground",

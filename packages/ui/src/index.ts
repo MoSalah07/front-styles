@@ -370,3 +370,48 @@ export {
   type TestimonialsProps,
   type TestimonialsVariant,
 } from "./blocks/testimonials";
+
+// templates
+export {
+  DashboardShell,
+  type DashboardShellMenuItem,
+  type DashboardShellNavGroup,
+  type DashboardShellNavItem,
+  type DashboardShellProps,
+  type DashboardShellUser,
+} from "./templates/dashboard-shell";
+export {
+  ErrorPageLayout,
+  NotFoundPage,
+  ServerErrorPage,
+  type ErrorPageProps,
+} from "./templates/error-pages";
+export { ForgotPassword, type ForgotPasswordProps } from "./templates/forgot-password";
+export {
+  LoginCentered,
+  type LoginCenteredProps,
+  type LoginCenteredValues,
+} from "./templates/login-centered";
+export {
+  LoginSplit,
+  type LoginSplitPoint,
+  type LoginSplitProps,
+  type LoginSplitValues,
+} from "./templates/login-split";
+export { OtpVerify, otpMaskDestination, type OtpVerifyProps } from "./templates/otp-verify";
+export {
+  Register,
+  registerPasswordScore,
+  type RegisterPasswordScore,
+  type RegisterProps,
+  type RegisterValues,
+} from "./templates/register";
+export {
+  SettingsPage,
+  type SettingsPageBrandOption,
+  type SettingsPageDensity,
+  type SettingsPagePreference,
+  type SettingsPageProps,
+  type SettingsPageTheme,
+  type SettingsPageUser,
+} from "./templates/settings-page";

@@ -70,12 +70,12 @@ export async function add(components: string[], opts: AddOptions) {
   }
 
   const registry = opts.registry ?? config.registry;
-  const srcPrefix =
-    existsSync(join(opts.cwd, "src")) && !existsSync(join(opts.cwd, config.paths.ui)) ? "src/" : "";
+  // `init` already resolved any src/ prefix into these paths. Re-deriving it
+  // here produced src/src/components/ui on a project that uses a src root.
   const paths = {
-    ui: srcPrefix + config.paths.ui,
-    lib: srcPrefix + config.paths.lib,
-    hooks: srcPrefix + config.paths.hooks,
+    ui: config.paths.ui,
+    lib: config.paths.lib,
+    hooks: config.paths.hooks,
   };
 
   console.log(kleur.dim(`registry: ${registry}`));

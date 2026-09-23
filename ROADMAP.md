@@ -14,7 +14,7 @@ The skeleton that everything else hangs off.
 - `@design-eg/cli`: `init` and `add`, with a shadcn-compatible registry
 - Docs site with a live playground: theme, brand, direction and density switch on one page
 
-## v0.2 — The full primitive set
+## v0.2 — The full primitive set ✅
 
 Everything an application needs before it needs anything fancy.
 
@@ -22,23 +22,25 @@ Dialog, Sheet, Popover, Tooltip, DropdownMenu, Select, Combobox, Command, Tabs, 
 
 Each one ships with tests and a docs page. Migration source: the primitives already proven in gochat-website and brand360.
 
-## v0.3 — Dashboard kit
+## v0.3 — Dashboard kit ✅
 
 The components that take longest to build well, and that every admin panel needs.
 
 Sidebar with collapse and mobile drawer, DataTable (sorting, selection, column visibility, pagination, empty and loading states), StatCard, chart wrappers themed from `--chart-*`, PageHeader, FilterBar, ConfirmDialog, EmptyState, ErrorState.
 
-## v0.4 — Marketing blocks
+## v0.4 — Marketing blocks ✅
 
 Hero, FeatureGrid, PricingTable, LogoMarquee, StatBento, Testimonials, FAQ, CtaBanner, Footer, Navbar.
 
-## v0.5 — Page templates
+## v0.5 — Page templates ✅
 
 Whole pages, not fragments: split login with a brand panel, register, forgot password, OTP verification, dashboard shell, settings, 404 and 500.
 
-## v1.0 — Quality gates
+## v1.0 — Quality gates (mostly done)
 
-Storybook with the accessibility addon, visual regression snapshots, axe and Lighthouse budgets enforced in CI, a stylelint rule set that rejects raw colours and literal z-index values, and a documented deprecation policy.
+Done: a stylelint rule set, a token-contract linter that rejects raw colours, off-scale palette classes, literal z-index and physical-direction utilities, a registry validator, a published-surface check, and 13 axe accessibility fixtures, all wired into CI across three jobs.
+
+Still open: Storybook with the accessibility addon, visual regression snapshots, Lighthouse budgets, and a documented deprecation policy.
 
 ---
 

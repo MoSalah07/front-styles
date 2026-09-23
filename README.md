@@ -87,14 +87,39 @@ pnpm typecheck
 pnpm changeset      # record a version bump before merging
 ```
 
+## What's in it
+
+| Tier       | Count | Examples                                                                 |
+| ---------- | ----- | ------------------------------------------------------------------------ |
+| Primitives | 37    | button, input, select, dialog, dropdown-menu, table, tabs, form, command |
+| Blocks     | 19    | data-table, app-sidebar, chart, stat-card, pricing-table, hero, faq      |
+| Templates  | 8     | login-split, register, otp-verify, dashboard-shell, settings, 404, 500   |
+
+Every one is a registry item with its own docs page and a live example.
+
+## Quality gates
+
+These run on every pull request and are the reason the library stays coherent:
+
+| Check           | What it enforces                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------- |
+| `lint:tokens`   | no raw colours, no off-scale palette classes, no literal z-index, no physical-direction utilities |
+| `lint:css`      | stylelint over the token and component stylesheets                                                |
+| `lint:registry` | every item is well formed and its dependencies resolve                                            |
+| `lint:dist`     | the published entry points and every `exports` subpath exist                                      |
+| `test`          | 72 tests, including 13 axe accessibility fixtures                                                 |
+
+The allowed colour list is derived from the token CSS at runtime, so the linter
+cannot fall out of step with the tokens.
+
 ## Roadmap
 
-- **v0.1** Foundation: tokens, 8 primitives, CLI, registry, docs site
-- **v0.2** Full primitive set: dialog, select, dropdown, tabs, tooltip, toast, table, form
-- **v0.3** Dashboard kit: sidebar, data table, stat cards, chart wrappers, empty states
-- **v0.4** Marketing blocks: hero, pricing, feature grid, logo marquee, FAQ
-- **v0.5** Page templates: split login, dashboard shell, settings
-- **v1.0** Storybook, visual regression, Lighthouse and axe budgets in CI
+Shipped: tokens and theming, the full primitive set, the dashboard kit, the
+marketing blocks, the page templates, the CLI and registry, the documentation
+site, and the quality gates above.
+
+Next: Storybook with visual regression, a Figma token sync, more brands, and the
+discoverability work described in [ROADMAP.md](./ROADMAP.md).
 
 ## License
 

@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach, vi } from "vitest";
+import { afterEach, expect, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import axe, { type AxeResults, type Result, type RunOptions } from "axe-core";
 
 /**
  * jsdom implements only part of the browser API that Radix relies on. Without
@@ -68,3 +69,74 @@ afterEach(() => {
   cleanup();
   vi.clearAllMocks();
 });
+
+/* ---------------------------------------------------------------- a11y ----
+ * axe-core wrapper plus a `toHaveNoViolations` matcher, so any test can assert
+ * a tree is clean. Two rules are off by design:
+ *
+ *   color-contrast   needs a layout engine and real computed colours; under
+ *                    jsdom it can only ever report "incomplete", never a pass.
+ *   region           requires every node to sit inside a landmark, which is a
+ *                    page-level concern, not a component one.
+ * -------------------------------------------------------------------------- */
+
+const BASE_AXE_OPTIONS: RunOptions = {
+  rules: {
+    "color-contrast": { enabled: false },
+    region: { enabled: false },
+  },
+};
+
+/**
+ * Nodes excluded from every scan. Radix's focus trap brackets its content with
+ * two `data-radix-focus-guard` spans that are both `aria-hidden` and
+ * `tabindex="0"`, which axe reports as aria-hidden-focus. They are internal to
+ * the primitive, invisible, and only reachable for the instant the trap uses to
+ * bounce focus back — excluding them keeps the rule live for our own markup.
+ */
+const AXE_EXCLUDE = [["[data-radix-focus-guard]"]];
+
+/** Runs axe over `element` (defaults to document.body, so portals are included). */
+export async function runAxe(element?: Element, options: RunOptions = {}): Promise<AxeResults> {
+  return axe.run(
+    { include: [element ?? document.body], exclude: AXE_EXCLUDE },
+    {
+      ...BASE_AXE_OPTIONS,
+      ...options,
+      rules: { ...BASE_AXE_OPTIONS.rules, ...options.rules },
+    },
+  );
+}
+
+function formatViolations(violations: Result[]): string {
+  return violations
+    .map((v) => {
+      const nodes = v.nodes
+        .map((n) => `      ${n.html}\n        ${n.failureSummary?.replace(/\n/g, "\n        ")}`)
+        .join("\n");
+      return `  [${v.impact ?? "unknown"}] ${v.id}: ${v.help}\n    ${v.helpUrl}\n${nodes}`;
+    })
+    .join("\n\n");
+}
+
+expect.extend({
+  toHaveNoViolations(received: AxeResults) {
+    const violations = received?.violations ?? [];
+    return {
+      pass: violations.length === 0,
+      message: () =>
+        violations.length === 0
+          ? "expected accessibility violations, found none"
+          : `expected no accessibility violations, found ${violations.length}:\n\n${formatViolations(violations)}`,
+    };
+  },
+});
+
+// The type parameters must be spelled exactly as vitest declares them, or the
+// merge fails with TS2428 ("all declarations must have identical type
+// parameters") rather than adding the matcher.
+declare module "vitest" {
+  interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> {
+    toHaveNoViolations: () => R;
+  }
+}

@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { ArrowRight, Terminal } from "lucide-react";
 import { GithubMark } from "@/components/icons";
 import { Badge, Button, Separator } from "@design-eg/ui";
 import { PlaygroundControls } from "@/components/playground-controls";
 import { Showcase } from "@/components/showcase";
 import { Swatches } from "@/components/swatches";
+import { BLOCKS, COMPONENTS, TEMPLATES } from "@/lib/registry";
 import { SITE } from "@/lib/site";
 
 const FEATURES = [
@@ -26,17 +28,41 @@ const FEATURES = [
 ];
 
 export default function HomePage() {
+  const CATALOGUE = [
+    {
+      href: "/docs",
+      label: "Components",
+      count: COMPONENTS.length,
+      body: "Buttons, fields, overlays, navigation and feedback primitives built on Radix.",
+    },
+    {
+      href: "/docs/hero",
+      label: "Blocks",
+      count: BLOCKS.length,
+      body: "Composite sections: heroes, pricing tables, data tables, stat grids, filter bars.",
+    },
+    {
+      href: "/docs/templates",
+      label: "Page templates",
+      count: TEMPLATES.length,
+      body: "Whole screens: sign-in, sign-up, OTP, settings, a dashboard shell and error pages.",
+    },
+  ];
+
   return (
     <>
       <header className="sticky top-0 z-(--z-sticky) border-b glass">
         <div className="mx-auto flex h-(--header-h) max-w-(--container-content) items-center gap-4 px-(--gutter)">
-          <a href="/" className="flex items-center gap-2 font-display text-2xl tracking-wide">
+          <Link href="/" className="flex items-center gap-2 font-display text-2xl tracking-wide">
             <span className="inline-block size-6 rounded-sm bg-primary" aria-hidden="true" />
             {SITE.name}
-          </a>
+          </Link>
           <nav aria-label="Primary" className="ms-auto hidden items-center gap-1 sm:flex">
             <Button variant="ghost" size="sm" asChild>
-              <a href="#button">Components</a>
+              <Link href="/docs">Docs</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/docs/templates">Templates</Link>
             </Button>
             <Button variant="ghost" size="sm" asChild>
               <a href="#tokens">Tokens</a>
@@ -61,9 +87,9 @@ export default function HomePage() {
             <p className="max-w-prose text-body-lg text-muted-foreground">{SITE.description}</p>
             <div className="flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
-                <a href="#button">
-                  Explore components <ArrowRight />
-                </a>
+                <Link href="/docs">
+                  Browse the docs <ArrowRight />
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <a href={SITE.github} rel="noopener">
@@ -76,6 +102,25 @@ export default function HomePage() {
               <code>npx @design-eg/cli init &amp;&amp; npx @design-eg/cli add button card</code>
             </pre>
           </div>
+        </section>
+
+        <section className="grid gap-4 pb-(--section-y) sm:grid-cols-3">
+          {CATALOGUE.map((entry) => (
+            <Link
+              key={entry.href}
+              href={entry.href}
+              className="group rounded-card border bg-card p-5 shadow-1 transition-colors duration-(--duration-fast) ease-standard hover:bg-surface-2"
+            >
+              <div className="flex items-baseline justify-between">
+                <h2 className="text-h4 font-semibold">{entry.label}</h2>
+                <span className="font-display text-h3 text-primary">{entry.count}</span>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">{entry.body}</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium">
+                Open <ArrowRight className="size-4" />
+              </span>
+            </Link>
+          ))}
         </section>
 
         <section className="grid gap-4 pb-(--section-y) sm:grid-cols-2 lg:grid-cols-4">
@@ -97,6 +142,23 @@ export default function HomePage() {
           <Showcase />
           <Swatches />
         </div>
+
+        <section className="pb-(--section-y)">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border bg-card p-6 shadow-1">
+            <div>
+              <h2 className="text-h4 font-semibold">This is a sample of the library.</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Every one of the {COMPONENTS.length + BLOCKS.length + TEMPLATES.length} items has
+                its own page, with a live preview, the source and its dependency list.
+              </p>
+            </div>
+            <Button asChild>
+              <Link href="/docs">
+                Go to the docs <ArrowRight />
+              </Link>
+            </Button>
+          </div>
+        </section>
       </main>
 
       <footer className="border-t">

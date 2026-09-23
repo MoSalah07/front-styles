@@ -147,7 +147,7 @@ export function PlaygroundControls({ className }: { className?: string }) {
         ]}
       />
       <Button variant="ghost" size="sm" className="ms-auto" asChild>
-        <a href="#tokens">
+        <a href="/#tokens">
           <Languages className="size-3.5" />
           Tokens
         </a>

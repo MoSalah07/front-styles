@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   verify:
+    name: build · typecheck · test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,3 +26,55 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm format:check
+
+  lint:
+    name: conventions (tokens · css)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Enforces the AGENTS.md styling contract: no raw colours, no literal
+      # z-index, no physical-direction utilities.
+      - name: Token contract
+        run: pnpm lint:tokens
+      - name: Stylesheets
+        run: pnpm lint:css
+
+  package-surface:
+    name: published surface · registry
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build the library
+        run: pnpm --filter @design-eg/ui build
+
+      # dist/index.js, dist/styles.css and one entry point per component,
+      # block and template, plus every "exports" subpath resolving.
+      - name: Check published surface
+        run: pnpm lint:dist
+
+      - name: Build the registry
+        run: pnpm --filter @design-eg/registry build
+
+      # Every item has name, type, description and files with content, and
+      # every registryDependencies entry resolves to an item that exists.
+      - name: Validate registry JSON
+        run: pnpm lint:registry
+
+      - name: Pack tarball and list its contents
+        run: |
+          pnpm --filter @design-eg/ui exec npm pack --dry-run

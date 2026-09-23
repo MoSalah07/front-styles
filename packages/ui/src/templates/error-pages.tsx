@@ -63,7 +63,7 @@ function ErrorPageLayout({
       <div
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute inset-0 -z-10",
+          "pointer-events-none absolute inset-0 z-(--z-below)",
           "[background-image:linear-gradient(to_right,color-mix(in_oklab,var(--foreground)_6%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--foreground)_6%,transparent)_1px,transparent_1px)]",
           "[background-size:64px_64px]",
           "[mask-image:radial-gradient(65%_55%_at_50%_45%,black,transparent)]",
@@ -71,7 +71,7 @@ function ErrorPageLayout({
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute start-1/2 top-1/3 -z-10 size-[34rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl rtl:translate-x-1/2"
+        className="pointer-events-none absolute start-1/2 top-1/3 z-(--z-below) size-[34rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl rtl:translate-x-1/2"
       />
 
       <div className="flex max-w-xl flex-col items-center gap-6">

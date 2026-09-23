@@ -147,7 +147,7 @@ function OtpVerify({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 start-1/2 -z-10 size-[30rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl rtl:translate-x-1/2"
+        className="pointer-events-none absolute -top-40 start-1/2 z-(--z-below) size-[30rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl rtl:translate-x-1/2"
       />
 
       <div className="flex w-full max-w-[420px] flex-col items-center gap-8 text-center">

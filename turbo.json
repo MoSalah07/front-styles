@@ -17,7 +17,28 @@
     "test": {
       "dependsOn": ["^build"]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": ["//#lint:tokens", "//#lint:css"]
+    },
+    "//#lint:tokens": {
+      "inputs": [
+        "tooling/lint/check-tokens.mjs",
+        "packages/ui/src/**/*.tsx",
+        "packages/tokens/src/tailwind.css"
+      ]
+    },
+    "//#lint:css": {
+      "inputs": [
+        ".stylelintrc.json",
+        "packages/tokens/src/**/*.css",
+        "packages/ui/src/styles/**/*.css"
+      ]
+    },
+    "//#lint:registry": {
+      "dependsOn": ["@design-eg/registry#build"],
+      "cache": false,
+      "inputs": ["tooling/lint/check-registry.mjs"]
+    },
     "clean": {
       "cache": false
     }

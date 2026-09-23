@@ -153,7 +153,7 @@ function Register({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 end-[-8rem] -z-10 size-[30rem] rounded-full bg-primary/15 blur-3xl"
+        className="pointer-events-none absolute -top-40 end-[-8rem] z-(--z-below) size-[30rem] rounded-full bg-primary/15 blur-3xl"
       />
 
       <div className="flex w-full max-w-[440px] flex-col gap-8">

@@ -104,7 +104,7 @@ function ForgotPassword({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 start-[-8rem] -z-10 size-[28rem] rounded-full bg-primary/15 blur-3xl"
+        className="pointer-events-none absolute -bottom-40 start-[-8rem] z-(--z-below) size-[28rem] rounded-full bg-primary/15 blur-3xl"
       />
 
       <div className="flex w-full max-w-[400px] flex-col gap-8">

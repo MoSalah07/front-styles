@@ -97,7 +97,8 @@ function ChartContainer({
           "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border",
           "[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted/50",
           "[&_.recharts-reference-line_line]:stroke-border",
-          "[&_.recharts-sector[stroke='#fff']]:stroke-transparent",
+          /* design-eg-lint-disable-next-line raw-color */
+          "[&_.recharts-sector[stroke='#fff']]:stroke-transparent", // matches recharts' own default stroke value
           "[&_.recharts-surface]:outline-none",
           className,
         )}

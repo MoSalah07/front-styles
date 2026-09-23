@@ -153,14 +153,14 @@ function LoginSplit({
         <div
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute inset-0 -z-10",
+            "pointer-events-none absolute inset-0 z-(--z-below)",
             "[background-image:linear-gradient(135deg_in_oklab,color-mix(in_oklab,var(--brand)_45%,var(--neutral-1000))_0%,var(--neutral-1000)_55%,color-mix(in_oklab,var(--brand)_16%,var(--neutral-1000))_100%)]",
           )}
         />
         <div
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute inset-0 -z-10",
+            "pointer-events-none absolute inset-0 z-(--z-below)",
             "[background-image:linear-gradient(to_right,color-mix(in_oklab,var(--neutral-0)_8%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--neutral-0)_8%,transparent)_1px,transparent_1px)]",
             "[background-size:56px_56px]",
             "[mask-image:radial-gradient(90%_70%_at_50%_10%,black,transparent)]",
@@ -168,11 +168,11 @@ function LoginSplit({
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-24 start-[-6rem] -z-10 size-[28rem] rounded-full bg-brand-600/30 blur-3xl"
+          className="pointer-events-none absolute -top-24 start-[-6rem] z-(--z-below) size-[28rem] rounded-full bg-brand-600/30 blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-32 end-[-4rem] -z-10 size-[24rem] rounded-full bg-brand-400/20 blur-3xl"
+          className="pointer-events-none absolute -bottom-32 end-[-4rem] z-(--z-below) size-[24rem] rounded-full bg-brand-400/20 blur-3xl"
         />
 
         {brandPanel ?? (

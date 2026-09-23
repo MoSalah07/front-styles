@@ -14,6 +14,10 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "lint": "turbo run lint",
+    "lint:tokens": "node tooling/lint/check-tokens.mjs",
+    "lint:registry": "node tooling/lint/check-registry.mjs",
+    "lint:dist": "node tooling/lint/check-dist.mjs",
+    "lint:css": "stylelint \"packages/tokens/src/**/*.css\" \"packages/ui/src/styles/**/*.css\"",
     "format": "prettier --write \"**/*.{ts,tsx,mjs,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,mjs,json,css,md}\"",
     "changeset": "changeset",
@@ -24,6 +28,8 @@
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
     "prettier": "^3.9.8",
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard": "^40.0.0",
     "turbo": "^2.11.3",
     "typescript": "catalog:"
   }

@@ -75,7 +75,16 @@ for (const dir of DIRS) {
     const { values, types } = exportsOf(readFileSync(join(abs, file), "utf8"));
     if (!values.length && !types.length) continue;
     const specifiers = [...values, ...types.map((t) => `type ${t}`)];
-    lines.push(`export { ${specifiers.join(", ")} } from "./${dir}/${name}";`);
+    const from = `./${dir}/${name}`;
+    const oneLine = `export { ${specifiers.join(", ")} } from "${from}";`;
+    // Match Prettier's printWidth of 100 so the generated file is already
+    // formatted. Otherwise every build leaves this file dirty and
+    // `pnpm build && pnpm format:check` can never both pass.
+    lines.push(
+      oneLine.length <= 100
+        ? oneLine
+        : [`export {`, ...specifiers.map((s) => `  ${s},`), `} from "${from}";`].join("\n"),
+    );
     count++;
   }
 }

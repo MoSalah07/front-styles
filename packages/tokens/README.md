@@ -3,9 +3,9 @@
 Design tokens for [design-eg](https://github.com/design-eg/design-eg). A brand is a single JSON seed; the compiler turns it into a complete, contrast-checked CSS variable system with light and dark modes.
 
 ```
-brands/crimson.brand.json ──► dist/index.css   (primitives → semantic → component)
-                              dist/tailwind.css (Tailwind v4 @theme bridge)
-                              dist/tokens.json  (resolved values for docs, charts, Figma)
+brands/*.brand.json ──► dist/index.css   (primitives → semantic → component)
+                        dist/tailwind.css (Tailwind v4 @theme bridge)
+                        dist/tokens.json  (resolved values for docs, charts, Figma)
 ```
 
 ## Install
@@ -28,6 +28,8 @@ pnpm add @design-eg/tokens
 ```
 
 - `data-brand` selects a compiled brand (`crimson` is the default and needs no attribute).
+  Shipped: `crimson` (red), `ocean` (blue), `ember` (orange), `forest` (green),
+  `slate` (grey) and `neutral` (monochrome).
 - `.dark` / `.light` or `data-theme="dark|light"` switch modes and can be nested (a dark hero inside a light page).
 - `data-density="compact|comfortable|spacious"` scales control heights.
 
@@ -47,8 +49,8 @@ Create `brands/<name>.brand.json`:
 
 ```json
 {
-  "name": "ocean",
-  "seed": "#0EA5E9",
+  "name": "violet",
+  "seed": "#7C3AED",
   "radius": "0.75rem",
   "neutral": { "tint": 0.008 },
   "overrides": { "dark": { "primary-hover": "{brand.-2}" } }

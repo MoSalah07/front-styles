@@ -15,6 +15,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "keywords": [
@@ -46,6 +47,7 @@
     "@types/node": "catalog:",
     "@types/prompts": "^2.4.9",
     "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

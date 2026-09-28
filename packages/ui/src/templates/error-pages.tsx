@@ -5,6 +5,7 @@ import * as React from "react";
 import { ArrowLeft, House, RotateCw } from "lucide-react";
 import { Button } from "../components/button";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface ErrorPageProps extends Omit<React.ComponentProps<"div">, "title"> {
   /** Oversized display code, such as `404`. */
@@ -38,18 +39,23 @@ function ErrorPageLayout({
   eyebrow,
   title,
   description,
-  homeLabel = "Back to home",
+  homeLabel: homeLabelProp,
   homeHref = "/",
   onGoHome,
-  backLabel = "Go back",
+  backLabel: backLabelProp,
   onGoBack,
   showBack = true,
-  retryLabel = "Try again",
+  retryLabel: retryLabelProp,
   onRetry,
   reference,
   children,
   ...props
 }: ErrorPageProps) {
+  const t = useT();
+  const homeLabel = homeLabelProp ?? t("errorPages.home");
+  const backLabel = backLabelProp ?? t("errorPages.back");
+  const retryLabel = retryLabelProp ?? t("errorPages.retry");
+
   return (
     <div
       data-slot="error-page"
@@ -167,11 +173,16 @@ function ErrorPageLayout({
 /** Page shown when a route does not resolve. */
 function NotFoundPage({
   code = "404",
-  eyebrow = "Page not found",
-  title = "This page took a wrong turn.",
-  description = "The link may be broken, or the page may have been moved. Check the address, or head back to somewhere familiar.",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  description: descriptionProp,
   ...props
 }: ErrorPageProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("errorPages.notFoundEyebrow");
+  const title = titleProp ?? t("errorPages.notFoundTitle");
+  const description = descriptionProp ?? t("errorPages.notFoundDescription");
+
   return (
     <ErrorPageLayout
       data-slot="not-found-page"
@@ -187,12 +198,17 @@ function NotFoundPage({
 /** Page shown when the server fails, with a retry action alongside the usual escapes. */
 function ServerErrorPage({
   code = "500",
-  eyebrow = "Something broke",
-  title = "Our side hit a wall.",
-  description = "The request could not be completed. The team has been notified; trying again usually works.",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  description: descriptionProp,
   onRetry,
   ...props
 }: ErrorPageProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("errorPages.serverErrorEyebrow");
+  const title = titleProp ?? t("errorPages.serverErrorTitle");
+  const description = descriptionProp ?? t("errorPages.serverErrorDescription");
+
   return (
     <ErrorPageLayout
       data-slot="server-error-page"

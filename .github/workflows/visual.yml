@@ -1,0 +1,61 @@
+name: Visual
+
+# A pixel diff of the docs site. It covers what the unit tests structurally
+# cannot: a token change that quietly drops every muted label's contrast, or an
+# RTL mirror that breaks one component's padding. See tooling/vrt.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "apps/docs/**"
+      - "packages/tokens/**"
+      - "packages/ui/**"
+      - "tooling/vrt/**"
+      - ".github/workflows/visual.yml"
+
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    name: theme · brand · language · density
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Only chromium: the config runs one engine, and installing three would
+      # spend most of the job's time on browsers it never opens.
+      - name: Install Chromium
+        run: pnpm --filter @design-eg/visual-tests exec playwright install --with-deps chromium
+
+      # The snapshots are of the built site, and it is built from the tokens,
+      # the library and the registry — so a full build is what gets shot.
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:4321
+
+      - name: Screenshots
+        run: pnpm --filter @design-eg/visual-tests test:visual
+
+      # The report is the whole value on a failure: it carries the expected,
+      # the actual and the diff for every shot that moved.
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: tooling/vrt/playwright-report
+          retention-days: 14
+          if-no-files-found: ignore

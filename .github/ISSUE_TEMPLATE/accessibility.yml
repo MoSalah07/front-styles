@@ -1,0 +1,55 @@
+name: Accessibility issue
+description: A component is unusable or wrong for keyboard, screen reader, contrast, motion or RTL.
+labels: ["accessibility", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Accessibility reports are triaged ahead of feature work. If a component
+        traps focus, has no accessible name, or drops below AA, say so plainly —
+        a short report is fine.
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: "dropdown-menu"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of barrier
+      options:
+        - Keyboard (cannot reach, cannot escape, wrong order)
+        - Screen reader (missing or wrong name, role or state)
+        - Contrast (text or non-text below AA)
+        - Motion (animates for users who asked for reduced motion)
+        - RTL (mirrored wrongly, or not at all)
+        - Focus visibility
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and what you observed
+      description: For a screen reader, include which one and which browser, plus what it announced.
+    validations:
+      required: true
+
+  - type: input
+    id: criterion
+    attributes:
+      label: WCAG criterion
+      description: If you know it. Not required.
+      placeholder: "2.4.7 Focus Visible (AA)"
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the correct behaviour would be
+    validations:
+      required: true

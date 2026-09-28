@@ -1,12 +1,22 @@
+"use client";
+
 /** Trail of ancestor links ending in the current page. The separator chevron points along the reading direction. */
 import * as React from "react";
 import { ChevronRight, MoreHorizontal } from "lucide-react";
 import { Slot } from "radix-ui";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
+  const t = useT();
+
   return (
-    <nav data-slot="breadcrumb" aria-label="breadcrumb" className={cn(className)} {...props} />
+    <nav
+      data-slot="breadcrumb"
+      aria-label={t("breadcrumb.label")}
+      className={cn(className)}
+      {...props}
+    />
   );
 }
 
@@ -82,6 +92,8 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
 }
 
 function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span">) {
+  const t = useT();
+
   return (
     <span
       data-slot="breadcrumb-ellipsis"
@@ -91,7 +103,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span"
       {...props}
     >
       <MoreHorizontal className="size-4" />
-      <span className="sr-only">More</span>
+      <span className="sr-only">{t("breadcrumb.more")}</span>
     </span>
   );
 }

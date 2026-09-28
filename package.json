@@ -23,10 +23,13 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=./packages/* && changeset publish",
-    "clean": "turbo run clean && node -e \"require('fs').rmSync('node_modules',{recursive:true,force:true})\""
+    "clean": "turbo run clean && node -e \"require('fs').rmSync('node_modules',{recursive:true,force:true})\"",
+    "lint:js": "eslint ."
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
+    "@design-eg/eslint-config": "workspace:*",
+    "eslint": "^9.20.0",
     "prettier": "^3.9.8",
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0",

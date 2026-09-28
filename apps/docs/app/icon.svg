@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="design-eg">
+  <!--
+    The favicon plates the mark's counter in the brand's near-black instead of
+    leaving it a hole, so the glyph is deterministic wherever a browser, a
+    bookmark bar or an OS composites it. One shape, no fine detail: it still
+    reads at 16px.
+  -->
+  <rect width="32" height="32" rx="7" fill="#e50914"/>
+  <path fill="#141414" d="M8.5 7.5 H23.5 V11.5 H12.5 V14 H19.5 V18 H12.5 V20.5 H23.5 V24.5 H8.5 Z"/>
+</svg>

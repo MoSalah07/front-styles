@@ -5,6 +5,7 @@ import * as React from "react";
 import { Search } from "lucide-react";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
 
 export type CommandProps = React.ComponentProps<typeof CommandPrimitive>;
@@ -34,13 +35,17 @@ export interface CommandDialogProps extends React.ComponentProps<typeof Dialog> 
 }
 
 function CommandDialog({
-  title = "Command palette",
-  description = "Search for a command to run.",
+  title: titleProp,
+  description: descriptionProp,
   showHeader = false,
   className,
   children,
   ...props
 }: CommandDialogProps) {
+  const t = useT();
+  const title = titleProp ?? t("command.title");
+  const description = descriptionProp ?? t("command.description");
+
   return (
     <Dialog {...props}>
       <DialogContent

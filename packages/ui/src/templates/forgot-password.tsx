@@ -7,6 +7,7 @@ import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Label } from "../components/label";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface ForgotPasswordProps extends Omit<
   React.ComponentProps<"div">,
@@ -47,16 +48,16 @@ export interface ForgotPasswordProps extends Omit<
 function ForgotPassword({
   className,
   logo,
-  eyebrow = "Account recovery",
-  title = "Forgot your password?",
-  subtitle = "Enter the email on your account and we will send a reset link.",
-  emailLabel = "Email",
-  emailPlaceholder = "you@example.com",
-  submitLabel = "Send reset link",
-  sentTitle = "Check your inbox",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  emailLabel: emailLabelProp,
+  emailPlaceholder: emailPlaceholderProp,
+  submitLabel: submitLabelProp,
+  sentTitle: sentTitleProp,
   sentDescription,
-  resendLabel = "Resend the link",
-  backLabel = "Back to sign in",
+  resendLabel: resendLabelProp,
+  backLabel: backLabelProp,
   backHref,
   onBack,
   loading = false,
@@ -67,6 +68,16 @@ function ForgotPassword({
   onResend,
   ...props
 }: ForgotPasswordProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("forgotPassword.eyebrow");
+  const title = titleProp ?? t("forgotPassword.title");
+  const subtitle = subtitleProp ?? t("forgotPassword.subtitle");
+  const emailLabel = emailLabelProp ?? t("forgotPassword.emailLabel");
+  const emailPlaceholder = emailPlaceholderProp ?? t("forgotPassword.emailPlaceholder");
+  const submitLabel = submitLabelProp ?? t("forgotPassword.submit");
+  const sentTitle = sentTitleProp ?? t("forgotPassword.sentTitle");
+  const resendLabel = resendLabelProp ?? t("forgotPassword.resend");
+  const backLabel = backLabelProp ?? t("forgotPassword.back");
   const id = React.useId();
   const emailId = `${id}-email`;
   const errorId = `${id}-error`;

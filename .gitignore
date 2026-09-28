@@ -10,4 +10,6 @@ coverage/
 .env.*
 !.env.example
 apps/docs/public/r/
+apps/docs/public/docs/
+apps/docs/public/docs.md
 storybook-static/

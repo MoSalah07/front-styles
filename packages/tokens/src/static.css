@@ -21,9 +21,20 @@
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Arabic renders smaller at the same px size and needs more leading */
+  /* Per-script optical corrections. Both are applied by :lang() in the base
+     layer, so a page only pays for the script it is actually written in.
+
+     Arabic renders smaller than Latin at the same px size, and its connected
+     forms need the extra leading to stay legible.
+
+     Devanagari stacks matras above and below the shirorekha, so consecutive
+     lines collide long before Latin ones do; it needs the leading far more
+     than it needs a size bump, which is why its scale is the smaller of the
+     two and its line-height the larger. */
   --font-scale-ar: 1.06;
   --lh-ar-body: 1.85;
+  --font-scale-hi: 1.04;
+  --lh-hi-body: 1.9;
 
   /* Motion */
   --duration-instant: 100ms;

@@ -14,6 +14,7 @@ import {
 } from "../components/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/tooltip";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 /** Below this width the sidebar stops taking layout space and opens as a sheet. */
 const MOBILE_BREAKPOINT = 768;
@@ -168,10 +169,14 @@ export interface SidebarProps extends React.ComponentProps<"aside"> {
 function Sidebar({
   className,
   children,
-  label = "Main navigation",
-  mobileDescription = "Navigate between the sections of the application.",
+  label: labelProp,
+  mobileDescription: mobileDescriptionProp,
   ...props
 }: SidebarProps) {
+  const t = useT();
+  const label = labelProp ?? t("sidebar.label");
+  const mobileDescription = mobileDescriptionProp ?? t("sidebar.mobileDescription");
+
   const { state, isMobile, openMobile, setOpenMobile, direction } = useSidebar();
 
   if (isMobile) {
@@ -394,12 +399,10 @@ export interface SidebarTriggerProps extends React.ComponentProps<typeof Button>
   label?: string;
 }
 
-function SidebarTrigger({
-  className,
-  label = "Toggle sidebar",
-  onClick,
-  ...props
-}: SidebarTriggerProps) {
+function SidebarTrigger({ className, label: labelProp, onClick, ...props }: SidebarTriggerProps) {
+  const t = useT();
+  const label = labelProp ?? t("sidebar.toggle");
+
   const { toggleSidebar, state, openMobile, isMobile } = useSidebar();
 
   return (

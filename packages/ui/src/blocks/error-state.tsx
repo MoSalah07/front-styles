@@ -5,6 +5,7 @@ import * as React from "react";
 import { RefreshCw, TriangleAlert } from "lucide-react";
 import { Button } from "../components/button";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface ErrorStateProps extends Omit<React.ComponentProps<"div">, "title"> {
   /** Glyph shown above the title. Defaults to a warning triangle. */
@@ -24,14 +25,18 @@ export interface ErrorStateProps extends Omit<React.ComponentProps<"div">, "titl
 function ErrorState({
   className,
   icon,
-  title = "Something went wrong",
+  title: titleProp,
   message,
   onRetry,
-  retryLabel = "Try again",
+  retryLabel: retryLabelProp,
   action,
   children,
   ...props
 }: ErrorStateProps) {
+  const t = useT();
+  const title = titleProp ?? t("errorState.title");
+  const retryLabel = retryLabelProp ?? t("errorState.retry");
+
   return (
     <div
       data-slot="error-state"

@@ -36,11 +36,23 @@ Hero, FeatureGrid, PricingTable, LogoMarquee, StatBento, Testimonials, FAQ, CtaB
 
 Whole pages, not fragments: split login with a brand panel, register, forgot password, OTP verification, dashboard shell, settings, 404 and 500.
 
-## v1.0 — Quality gates (mostly done)
+## v1.0 — Quality gates ✅
 
-Done: a stylelint rule set, a token-contract linter that rejects raw colours, off-scale palette classes, literal z-index and physical-direction utilities, a registry validator, a published-surface check, and 13 axe accessibility fixtures, all wired into CI across three jobs.
+A stylelint rule set; a token-contract linter that rejects raw colours, off-scale palette classes, literal z-index and physical-direction utilities; a shared ESLint config covering correctness, hooks and accessibility; a registry validator; a published-surface check; axe fixtures in all four languages; Playwright visual regression across theme, brand, language and density; Lighthouse budgets; and a documented versioning and deprecation policy in VERSIONING.md.
 
-Still open: Storybook with the accessibility addon, visual regression snapshots, Lighthouse budgets, and a documented deprecation policy.
+Tests: 233 across the token compiler, the component library, the CLI and the MCP server. CI runs build, typecheck, test and format on every pull request, plus separate jobs for conventions, the published surface, the visual diff and the Lighthouse budgets.
+
+Not done, and deliberately: Storybook. Every component already renders on its own docs page in every theme, brand, language and density, with the source and a live preview; a second catalogue of the same components would be a third place to keep in step with the registry.
+
+## Next: the first public release
+
+Every phase above is built and passes build, typecheck, test and every lint gate locally. None of it has been published yet: there is no npm version, no deployed docs site, and CI has never run against a pushed branch. The first release ships all of it at once.
+
+- A public GitHub repository, with the work pushed and CI green on a pull request
+- Visual regression baselines, generated on Linux by the CI job rather than on a developer machine, so font rasterisation matches
+- A first Lighthouse run against the budgets in `.lighthouserc.json`
+- The docs site deployed, which is also the registry host that `npx @design-eg/cli add` fetches from
+- The `@design-eg` npm scope, and a first publish of `tokens`, `ui`, `cli` and `mcp` through Changesets
 
 ---
 
@@ -48,18 +60,18 @@ Still open: Storybook with the accessibility addon, visual regression snapshots,
 
 By explicit decision, this work happens after the library is actually good. Shipping it earlier would only drive traffic to something unfinished.
 
-### Identity
+### Identity ✅
 
 A logo and icon set for the library itself: wordmark, app icon, favicon at every size, social share image, and a consistent OG image template per docs page.
 
 ### Search engines
 
-- Per-page metadata, canonical URLs and a generated sitemap covering every component page
-- `SoftwareSourceCode` and `TechArticle` structured data, plus `BreadcrumbList` on docs pages
-- Core Web Vitals budget enforced in CI, since ranking follows real performance
+- ✅ Per-page metadata, canonical URLs with `hreflang` alternates for all four languages, and a generated sitemap covering every component page
+- ✅ `SoftwareSourceCode` and `TechArticle` structured data, plus `BreadcrumbList` on docs pages
+- ✅ Core Web Vitals budget enforced in CI, since ranking follows real performance
 - A content layer that answers the queries people actually type: "RTL React components", "Arabic UI kit", "Tailwind v4 design system", "shadcn alternative"
 
-### AI assistants
+### AI assistants ✅
 
 Being recommended by an assistant is now a real distribution channel, and it works differently from search ranking.
 
@@ -68,7 +80,7 @@ Being recommended by an assistant is now a real distribution channel, and it wor
 - Copy-paste blocks written so that the snippet an assistant extracts actually compiles on its own
 - The registry JSON kept public and stable, so an assistant can point at a URL that keeps working
 - Crawlers from OpenAI, Anthropic, Google and Perplexity explicitly allowed in `robots.txt`
-- An MCP server exposing the component catalogue, so an assistant can query the library directly instead of guessing from training data
+- `@design-eg/mcp`, an MCP server exposing the component catalogue, so an assistant can query the library directly instead of guessing from training data. Six tools over the baked registry and tokens: list, search, one item with its source, an install plan, the brands, and a brand’s resolved tokens.
 
 ### Launch
 

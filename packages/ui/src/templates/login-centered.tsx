@@ -9,6 +9,7 @@ import { Input } from "../components/input";
 import { Label } from "../components/label";
 import { Switch } from "../components/switch";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface LoginCenteredValues {
   email: string;
@@ -52,18 +53,18 @@ export interface LoginCenteredProps extends Omit<
 function LoginCentered({
   className,
   logo,
-  eyebrow = "Welcome back",
-  title = "Sign in",
-  subtitle = "Use your work email to continue.",
-  emailLabel = "Email",
-  emailPlaceholder = "you@example.com",
-  passwordLabel = "Password",
-  passwordPlaceholder = "Your password",
-  rememberLabel = "Remember me",
-  forgotLabel = "Forgot password?",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  emailLabel: emailLabelProp,
+  emailPlaceholder: emailPlaceholderProp,
+  passwordLabel: passwordLabelProp,
+  passwordPlaceholder: passwordPlaceholderProp,
+  rememberLabel: rememberLabelProp,
+  forgotLabel: forgotLabelProp,
   forgotHref,
   onForgotPassword,
-  submitLabel = "Sign in",
+  submitLabel: submitLabelProp,
   loading = false,
   error,
   social,
@@ -73,6 +74,17 @@ function LoginCentered({
   onSubmit,
   ...props
 }: LoginCenteredProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("login.eyebrow");
+  const title = titleProp ?? t("login.title");
+  const subtitle = subtitleProp ?? t("login.subtitleCentred");
+  const emailLabel = emailLabelProp ?? t("login.emailLabel");
+  const emailPlaceholder = emailPlaceholderProp ?? t("login.emailPlaceholder");
+  const passwordLabel = passwordLabelProp ?? t("login.passwordLabel");
+  const passwordPlaceholder = passwordPlaceholderProp ?? t("login.passwordPlaceholder");
+  const rememberLabel = rememberLabelProp ?? t("login.remember");
+  const forgotLabel = forgotLabelProp ?? t("login.forgot");
+  const submitLabel = submitLabelProp ?? t("login.submit");
   const id = React.useId();
   const emailId = `${id}-email`;
   const passwordId = `${id}-password`;
@@ -224,7 +236,7 @@ function LoginCentered({
                       variant="ghost"
                       size="icon-sm"
                       disabled={loading}
-                      aria-label={revealed ? "Hide password" : "Show password"}
+                      aria-label={revealed ? t("login.hidePassword") : t("login.showPassword")}
                       aria-pressed={revealed}
                       aria-controls={passwordId}
                       onMouseDown={(event) => event.preventDefault()}

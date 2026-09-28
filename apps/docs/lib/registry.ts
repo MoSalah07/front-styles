@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { categorise } from "./registry-meta.mjs";
 
 /**
  * Reads the generated shadcn registry at build time so the docs site never
@@ -77,6 +78,7 @@ const COMPONENT_GROUPS: Record<string, string> = {
 
   alert: "Feedback",
   sonner: "Feedback",
+  "copy-button": "Feedback",
 };
 
 const GROUP_ORDER = [
@@ -110,13 +112,6 @@ function titleFromName(name: string) {
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
-}
-
-function categorise(file: string, type: string): DocsCategory {
-  if (file.startsWith("components/templates/")) return "template";
-  if (file.startsWith("components/blocks/")) return "block";
-  if (type === "registry:ui") return "component";
-  return "foundation";
 }
 
 function loadRegistry(): RegistryItem[] {
@@ -200,6 +195,54 @@ export const DOCS_ROUTES: string[] = [
   ...REGISTRY_ITEMS.map((item) => item.href),
 ];
 
-export function installCommand(name: string) {
-  return `npx @design-eg/cli add ${name}`;
+/**
+ * The Markdown twin of every docs route, written into `public/` by
+ * `scripts/gen-md.mjs`. Assistants parse these far better than rendered HTML.
+ */
+export const DOCS_MD_ROUTES: string[] = DOCS_ROUTES.map((route) => `${route}.md`);
+
+export {
+  installCommand,
+  installExec,
+  KIND_LABEL,
+  registryItemUrl,
+  shadcnCommand,
+} from "./registry-meta.mjs";
+
+export interface RegistryFile {
+  path: string;
+  type: string;
+  content: string;
+  target: string;
+}
+
+const FILE_CACHE = new Map<string, RegistryFile[]>();
+
+/**
+ * The item document rather than the index: only `r/<name>.json` carries the
+ * source, because the index strips `content` to stay small.
+ */
+export function getItemFiles(name: string): RegistryFile[] {
+  const cached = FILE_CACHE.get(name);
+  if (cached) return cached;
+
+  let files: RegistryFile[] = [];
+  try {
+    const raw = fs.readFileSync(path.join(process.cwd(), "public", "r", `${name}.json`), "utf8");
+    const parsed = JSON.parse(raw) as { files?: unknown };
+    files = (Array.isArray(parsed.files) ? parsed.files : [])
+      .map((entry) => entry as Record<string, unknown>)
+      .filter((entry) => typeof entry.path === "string" && typeof entry.content === "string")
+      .map((entry) => ({
+        path: entry.path as string,
+        type: typeof entry.type === "string" ? entry.type : "registry:ui",
+        content: entry.content as string,
+        target: typeof entry.target === "string" ? entry.target : (entry.path as string),
+      }));
+  } catch {
+    files = [];
+  }
+
+  FILE_CACHE.set(name, files);
+  return files;
 }

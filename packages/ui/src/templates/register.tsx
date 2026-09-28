@@ -9,6 +9,7 @@ import { Input } from "../components/input";
 import { Label } from "../components/label";
 import { Progress } from "../components/progress";
 import { cn } from "../lib/cn";
+import { useT, type MessageKey } from "../lib/i18n";
 
 export interface RegisterValues {
   name: string;
@@ -20,13 +21,14 @@ export interface RegisterValues {
 /** Score from 0 (empty) to 4 (strong), derived from length and character variety. */
 export type RegisterPasswordScore = 0 | 1 | 2 | 3 | 4;
 
-const strengthLabels: Record<RegisterPasswordScore, string> = {
-  0: "Too short",
-  1: "Weak",
-  2: "Fair",
-  3: "Good",
-  4: "Strong",
-};
+/** Catalogue key per score, so the wording travels with the language. */
+const STRENGTH_KEYS = {
+  0: "register.strength0",
+  1: "register.strength1",
+  2: "register.strength2",
+  3: "register.strength3",
+  4: "register.strength4",
+} as const satisfies Record<RegisterPasswordScore, MessageKey>;
 
 const strengthTone: Record<RegisterPasswordScore, string> = {
   0: "[&_[data-slot=progress-indicator]]:bg-muted-foreground",
@@ -94,24 +96,37 @@ export interface RegisterProps extends Omit<React.ComponentProps<"div">, "onSubm
 function Register({
   className,
   logo,
-  eyebrow = "Get started",
-  title = "Create your account",
-  subtitle = "It takes less than a minute.",
-  nameLabel = "Full name",
-  namePlaceholder = "Nour Hassan",
-  emailLabel = "Email",
-  emailPlaceholder = "you@example.com",
-  passwordLabel = "Password",
-  confirmLabel = "Confirm password",
-  termsLabel = "I agree to the terms of service and the privacy policy.",
-  submitLabel = "Create account",
-  mismatchMessage = "The two passwords do not match.",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  nameLabel: nameLabelProp,
+  namePlaceholder: namePlaceholderProp,
+  emailLabel: emailLabelProp,
+  emailPlaceholder: emailPlaceholderProp,
+  passwordLabel: passwordLabelProp,
+  confirmLabel: confirmLabelProp,
+  termsLabel: termsLabelProp,
+  submitLabel: submitLabelProp,
+  mismatchMessage: mismatchMessageProp,
   loading = false,
   error,
   footer,
   onSubmit,
   ...props
 }: RegisterProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("register.eyebrow");
+  const title = titleProp ?? t("register.title");
+  const subtitle = subtitleProp ?? t("register.subtitle");
+  const nameLabel = nameLabelProp ?? t("register.nameLabel");
+  const namePlaceholder = namePlaceholderProp ?? t("register.namePlaceholder");
+  const emailLabel = emailLabelProp ?? t("register.emailLabel");
+  const emailPlaceholder = emailPlaceholderProp ?? t("register.emailPlaceholder");
+  const passwordLabel = passwordLabelProp ?? t("register.passwordLabel");
+  const confirmLabel = confirmLabelProp ?? t("register.confirmLabel");
+  const termsLabel = termsLabelProp ?? t("register.terms");
+  const submitLabel = submitLabelProp ?? t("register.submit");
+  const mismatchMessage = mismatchMessageProp ?? t("register.mismatch");
   const id = React.useId();
   const nameId = `${id}-name`;
   const emailId = `${id}-email`;
@@ -244,7 +259,7 @@ function Register({
                   variant="ghost"
                   size="icon-sm"
                   disabled={loading}
-                  aria-label={revealed ? "Hide password" : "Show password"}
+                  aria-label={revealed ? t("register.hidePassword") : t("register.showPassword")}
                   aria-pressed={revealed}
                   aria-controls={passwordId}
                   onMouseDown={(event) => event.preventDefault()}
@@ -258,7 +273,7 @@ function Register({
               <div data-slot="register-strength" className="grid gap-1.5">
                 <Progress
                   value={(score / 4) * 100}
-                  aria-label="Password strength"
+                  aria-label={t("register.strengthLabel")}
                   className={cn("h-1.5", strengthTone[score])}
                 />
                 <p
@@ -267,8 +282,10 @@ function Register({
                   className={cn("text-caption font-medium", strengthTextTone[score])}
                 >
                   {password.length === 0
-                    ? "Use at least 8 characters, with a number and a symbol."
-                    : `Password strength: ${strengthLabels[score]}`}
+                    ? t("register.strengthHint")
+                    : t("register.strengthValue", {
+                        strength: t(STRENGTH_KEYS[score]),
+                      })}
                 </p>
               </div>
             </div>

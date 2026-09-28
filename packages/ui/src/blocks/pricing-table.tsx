@@ -4,6 +4,7 @@
 import * as React from "react";
 import { Check } from "lucide-react";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 import { Badge } from "../components/badge";
 import { Switch } from "../components/switch";
 
@@ -37,14 +38,19 @@ function PricingTable({
   period = "monthly",
   onPeriodChange,
   showToggle = true,
-  monthlyLabel = "Monthly",
-  annualLabel = "Annual",
-  toggleLabel = "Bill annually",
+  monthlyLabel: monthlyLabelProp,
+  annualLabel: annualLabelProp,
+  toggleLabel: toggleLabelProp,
   annualNote,
   columns = 3,
   children,
   ...props
 }: PricingTableProps) {
+  const t = useT();
+  const monthlyLabel = monthlyLabelProp ?? t("pricingTable.monthly");
+  const annualLabel = annualLabelProp ?? t("pricingTable.annual");
+  const toggleLabel = toggleLabelProp ?? t("pricingTable.billAnnually");
+
   return (
     <div
       data-slot="pricing-table"

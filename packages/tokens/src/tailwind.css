@@ -23,9 +23,13 @@
   /* Spacing base */
   --spacing: var(--space-unit);
 
-  /* Fonts (raw tier: --font-body / --font-ar / --font-title / --font-code) */
+  /* Fonts (raw tier: --font-body / --font-ar / --font-hi / --font-title /
+     --font-code). The script faces are also selected automatically by :lang()
+     in the base layer; these utilities are for the case where one element is
+     in a different script from the document it sits in. */
   --font-sans: var(--font-body);
   --font-arabic: var(--font-ar);
+  --font-devanagari: var(--font-hi);
   --font-display: var(--font-title);
   --font-mono: var(--font-code);
 

@@ -30,10 +30,24 @@
     line-height: var(--leading-body);
   }
 
-  /* Arabic: switch stack and open up the leading */
+  /* Per-script typography.
+
+     Keyed on :lang() rather than on [dir], because the two are not the same
+     question: an Arabic quotation inside an English page is still Arabic and
+     still needs the Arabic face, while Hindi is left-to-right and would never
+     be caught by a direction selector at all.
+
+     Each rule sets the face and the leading together. Splitting them lets a
+     page end up with Devanagari at Latin leading, which is the specific way
+     this breaks: the matras of one line touch the next. */
   :lang(ar) {
     font-family: var(--font-ar);
     line-height: var(--lh-ar-body);
+  }
+
+  :lang(hi) {
+    font-family: var(--font-hi);
+    line-height: var(--lh-hi-body);
   }
 
   ::selection {

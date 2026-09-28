@@ -1,51 +1,34 @@
 "use client";
 
 import * as React from "react";
-import { Languages, Monitor, Moon, Rows3, Sun } from "lucide-react";
+import { Languages, Rows3 } from "lucide-react";
 import { brands, tokens, type BrandName } from "@design-eg/tokens";
-import { Button } from "@design-eg/ui/button";
+import { Button, ThemeSelect } from "@design-eg/ui";
 import { cn } from "@design-eg/ui/cn";
+import { LanguageSwitch, useRouteLocale } from "@/components/language-switch";
+import type { Dictionary } from "@/app/[lang]/dictionaries/types";
 
-type Theme = "light" | "dark" | "system";
-type Dir = "ltr" | "rtl";
 type Density = "compact" | "comfortable" | "spacious";
 
+/**
+ * Theme and language own their own state elsewhere — the theme picker reads
+ * `<html>` and writes it back, and the language lives in the route. Brand and
+ * density have no shipped control yet, so they stay as local segments here.
+ */
 function useHtmlState() {
-  const [theme, setThemeState] = React.useState<Theme>("dark");
   const [brand, setBrandState] = React.useState<BrandName>(tokens.defaultBrand);
-  const [dir, setDirState] = React.useState<Dir>("ltr");
   const [density, setDensityState] = React.useState<Density>("comfortable");
 
   React.useEffect(() => {
     const d = document.documentElement;
-    setThemeState((d.dataset.themeChoice as Theme) || "dark");
     setBrandState((d.dataset.brand as BrandName) || tokens.defaultBrand);
-    setDirState((d.dir as Dir) || "ltr");
     setDensityState((d.dataset.density as Density) || "comfortable");
   }, []);
 
-  const setTheme = (t: Theme) => {
-    const d = document.documentElement;
-    const dark =
-      t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-    d.classList.toggle("dark", dark);
-    d.classList.toggle("light", !dark);
-    d.style.colorScheme = dark ? "dark" : "light";
-    d.dataset.themeChoice = t;
-    localStorage.setItem("design-eg:theme", t);
-    setThemeState(t);
-  };
   const setBrand = (b: BrandName) => {
     document.documentElement.dataset.brand = b;
     localStorage.setItem("design-eg:brand", b);
     setBrandState(b);
-  };
-  const setDir = (v: Dir) => {
-    const d = document.documentElement;
-    d.dir = v;
-    d.lang = v === "rtl" ? "ar" : "en";
-    localStorage.setItem("design-eg:dir", v);
-    setDirState(v);
   };
   const setDensity = (v: Density) => {
     document.documentElement.dataset.density = v;
@@ -53,7 +36,7 @@ function useHtmlState() {
     setDensityState(v);
   };
 
-  return { theme, setTheme, brand, setBrand, dir, setDir, density, setDensity };
+  return { brand, setBrand, density, setDensity };
 }
 
 function Segment<T extends string>({
@@ -96,22 +79,29 @@ function Segment<T extends string>({
   );
 }
 
-export function PlaygroundControls({ className }: { className?: string }) {
+/**
+ * A Client Component, so its copy arrives as plain strings from the server
+ * rather than by importing a dictionary here.
+ */
+export function PlaygroundControls({
+  className,
+  copy,
+}: {
+  className?: string;
+  copy: Dictionary["playground"];
+}) {
   const s = useHtmlState();
+  const { locale } = useRouteLocale();
+
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
-      <Segment<Theme>
-        label="Colour mode"
-        value={s.theme}
-        onChange={s.setTheme}
-        options={[
-          { value: "light", label: <Sun className="size-3.5" />, title: "Light" },
-          { value: "dark", label: <Moon className="size-3.5" />, title: "Dark" },
-          { value: "system", label: <Monitor className="size-3.5" />, title: "System" },
-        ]}
-      />
+      {/* Arabic carries dir="rtl" with it, which is the RTL pass for every demo
+          on the page — so there is no separate direction toggle to fall out of
+          step with the language. */}
+      <LanguageSwitch size="sm" align="start" />
+      <ThemeSelect size="sm" align="start" defaultTheme="dark" />
       <Segment<BrandName>
-        label="Brand"
+        label={copy.brand}
         value={s.brand}
         onChange={s.setBrand}
         options={brands.map((b) => ({
@@ -127,29 +117,20 @@ export function PlaygroundControls({ className }: { className?: string }) {
           ),
         }))}
       />
-      <Segment<Dir>
-        label="Direction"
-        value={s.dir}
-        onChange={s.setDir}
-        options={[
-          { value: "ltr", label: "LTR" },
-          { value: "rtl", label: "RTL" },
-        ]}
-      />
       <Segment<Density>
-        label="Density"
+        label={copy.density}
         value={s.density}
         onChange={s.setDensity}
         options={[
-          { value: "compact", label: <Rows3 className="size-3.5" />, title: "Compact" },
-          { value: "comfortable", label: "Default" },
-          { value: "spacious", label: "Airy" },
+          { value: "compact", label: <Rows3 className="size-3.5" />, title: copy.compact },
+          { value: "comfortable", label: copy.comfortable },
+          { value: "spacious", label: copy.spacious },
         ]}
       />
       <Button variant="ghost" size="sm" className="ms-auto" asChild>
-        <a href="/#tokens">
+        <a href={`/${locale}#tokens`}>
           <Languages className="size-3.5" />
-          Tokens
+          {copy.tokens}
         </a>
       </Button>
     </div>

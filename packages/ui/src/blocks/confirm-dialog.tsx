@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "../components/alert-dialog";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface ConfirmDialogProps extends Omit<
   React.ComponentProps<typeof AlertDialogContent>,
@@ -52,8 +53,8 @@ function ConfirmDialog({
   className,
   title,
   description,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel: confirmLabelProp,
+  cancelLabel: cancelLabelProp,
   destructive = false,
   onConfirm,
   onError,
@@ -64,6 +65,10 @@ function ConfirmDialog({
   children,
   ...props
 }: ConfirmDialogProps) {
+  const t = useT();
+  const confirmLabel = confirmLabelProp ?? t("confirmDialog.confirm");
+  const cancelLabel = cancelLabelProp ?? t("confirmDialog.cancel");
+
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const [pending, setPending] = React.useState(false);
 

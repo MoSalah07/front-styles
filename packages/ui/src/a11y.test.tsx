@@ -36,6 +36,7 @@ import {
   CardTitle,
 } from "./components/card";
 import { Checkbox } from "./components/checkbox";
+import { CopyButton } from "./components/copy-button";
 import {
   Dialog,
   DialogContent,
@@ -66,6 +67,8 @@ import {
   TableRow,
 } from "./components/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
+import { LanguageSelect } from "./blocks/language-select";
+import { ThemeSelect } from "./blocks/theme-select";
 
 /** Each fixture is a self-contained, *valid* usage of the component. */
 const fixtures: Array<[name: string, ui: React.ReactElement]> = [
@@ -196,6 +199,24 @@ const fixtures: Array<[name: string, ui: React.ReactElement]> = [
         </PaginationItem>
       </PaginationContent>
     </Pagination>,
+  ],
+  [
+    "copy button",
+    <div>
+      <CopyButton value="npm install @design-eg/ui" copyLabel="Copy install command" />
+      <CopyButton value="npm install @design-eg/ui" variant="outline">
+        Copy command
+      </CopyButton>
+    </div>,
+  ],
+  [
+    "theme and language pickers (closed)",
+    <div>
+      <ThemeSelect />
+      <ThemeSelect variant="icon" />
+      <LanguageSelect />
+      <LanguageSelect variant="ghost" />
+    </div>,
   ],
   [
     "breadcrumb",

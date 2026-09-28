@@ -29,6 +29,7 @@ import { Switch } from "../components/switch";
 import { ToggleGroup, ToggleGroupItem } from "../components/toggle-group";
 import { ConfirmDialog } from "../blocks/confirm-dialog";
 import { cn } from "../lib/cn";
+import { useT, type TranslateFn } from "../lib/i18n";
 
 export type SettingsPageTheme = "light" | "dark" | "system";
 export type SettingsPageDensity = "compact" | "comfortable" | "spacious";
@@ -89,36 +90,45 @@ export interface SettingsPageProps extends Omit<React.ComponentProps<"div">, "ti
   children?: React.ReactNode;
 }
 
-const defaultPreferences: SettingsPagePreference[] = [
-  {
-    id: "product-updates",
-    label: "Product updates",
-    description: "Occasional email about new components and releases.",
-    defaultChecked: true,
-  },
-  {
-    id: "security-alerts",
-    label: "Security alerts",
-    description: "Always sent for sign-ins from a new device.",
-    defaultChecked: true,
-  },
-  {
-    id: "weekly-digest",
-    label: "Weekly digest",
-    description: "A Monday summary of everything your team shipped.",
-  },
-];
+/** Built per render from the catalogue, so the rows follow the reader. */
+function defaultPreferencesFor(t: TranslateFn): SettingsPagePreference[] {
+  return [
+    {
+      id: "product-updates",
+      label: t("settings.prefUpdatesLabel"),
+      description: t("settings.prefUpdatesDescription"),
+      defaultChecked: true,
+    },
+    {
+      id: "security-alerts",
+      label: t("settings.prefSecurityLabel"),
+      description: t("settings.prefSecurityDescription"),
+      defaultChecked: true,
+    },
+    {
+      id: "weekly-digest",
+      label: t("settings.prefDigestLabel"),
+      description: t("settings.prefDigestDescription"),
+    },
+  ];
+}
 
 const defaultBrands: SettingsPageBrandOption[] = [
   { value: "crimson", label: "Crimson" },
+  { value: "ocean", label: "Ocean" },
+  { value: "ember", label: "Ember" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
   { value: "neutral", label: "Neutral" },
 ];
 
-const densities: { value: SettingsPageDensity; label: string }[] = [
-  { value: "compact", label: "Compact" },
-  { value: "comfortable", label: "Default" },
-  { value: "spacious", label: "Spacious" },
-];
+function densitiesFor(t: TranslateFn): { value: SettingsPageDensity; label: string }[] {
+  return [
+    { value: "compact", label: t("settings.densityCompact") },
+    { value: "comfortable", label: t("settings.densityComfortable") },
+    { value: "spacious", label: t("settings.densitySpacious") },
+  ];
+}
 
 function initialsOf(user: SettingsPageUser): string {
   if (user.initials) return user.initials;
@@ -132,25 +142,37 @@ function initialsOf(user: SettingsPageUser): string {
 
 function SettingsPage({
   className,
-  title = "Settings",
-  description = "Manage your account, your notifications and how the interface looks.",
+  title: titleProp,
+  description: descriptionProp,
   user,
-  nameLabel = "Full name",
-  emailLabel = "Email",
+  nameLabel: nameLabelProp,
+  emailLabel: emailLabelProp,
   onProfileSubmit,
   onAvatarChange,
-  preferences = defaultPreferences,
+  preferences: preferencesProp,
   brands = defaultBrands,
   showAppearance = true,
-  dangerTitle = "Danger zone",
-  dangerDescription = "Deleting the workspace removes every project, member and API key. This cannot be undone.",
-  dangerActionLabel = "Delete workspace",
-  dangerConfirmTitle = "Delete this workspace?",
-  dangerConfirmDescription = "Every project, member and API key is removed immediately. This action cannot be undone.",
+  dangerTitle: dangerTitleProp,
+  dangerDescription: dangerDescriptionProp,
+  dangerActionLabel: dangerActionLabelProp,
+  dangerConfirmTitle: dangerConfirmTitleProp,
+  dangerConfirmDescription: dangerConfirmDescriptionProp,
   onDangerConfirm,
   children,
   ...props
 }: SettingsPageProps) {
+  const t = useT();
+  const preferences = preferencesProp ?? defaultPreferencesFor(t);
+  const title = titleProp ?? t("settings.title");
+  const description = descriptionProp ?? t("settings.description");
+  const nameLabel = nameLabelProp ?? t("settings.nameLabel");
+  const emailLabel = emailLabelProp ?? t("settings.emailLabel");
+  const dangerTitle = dangerTitleProp ?? t("settings.dangerTitle");
+  const dangerDescription = dangerDescriptionProp ?? t("settings.dangerDescription");
+  const dangerActionLabel = dangerActionLabelProp ?? t("settings.dangerAction");
+  const dangerConfirmTitle = dangerConfirmTitleProp ?? t("settings.dangerConfirmTitle");
+  const dangerConfirmDescription =
+    dangerConfirmDescriptionProp ?? t("settings.dangerConfirmDescription");
   const id = React.useId();
   const nameId = `${id}-name`;
   const emailId = `${id}-email`;
@@ -207,22 +229,30 @@ function SettingsPage({
   };
 
   const sections = [
-    { id: `${id}-section-profile`, label: "Profile", icon: <User aria-hidden="true" /> },
+    {
+      id: `${id}-section-profile`,
+      label: t("settings.profile"),
+      icon: <User aria-hidden="true" />,
+    },
     {
       id: `${id}-section-preferences`,
-      label: "Preferences",
+      label: t("settings.preferences"),
       icon: <SlidersHorizontal aria-hidden="true" />,
     },
     ...(showAppearance
       ? [
           {
             id: `${id}-section-appearance`,
-            label: "Appearance",
+            label: t("settings.appearance"),
             icon: <Palette aria-hidden="true" />,
           },
         ]
       : []),
-    { id: `${id}-section-danger`, label: "Danger zone", icon: <ShieldAlert aria-hidden="true" /> },
+    {
+      id: `${id}-section-danger`,
+      label: dangerTitle,
+      icon: <ShieldAlert aria-hidden="true" />,
+    },
   ];
 
   return (
@@ -243,7 +273,7 @@ function SettingsPage({
       <div className="grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
         <nav
           data-slot="settings-page-nav"
-          aria-label="Settings sections"
+          aria-label={t("settings.sectionsLabel")}
           className="lg:sticky lg:top-6 lg:self-start"
         >
           <ul className="flex flex-row flex-wrap gap-1 lg:flex-col">
@@ -276,10 +306,8 @@ function SettingsPage({
             aria-labelledby={`${sections[0]!.id}-title`}
           >
             <CardHeader>
-              <CardTitle id={`${sections[0]!.id}-title`}>Profile</CardTitle>
-              <CardDescription>
-                This is how your teammates see you across the workspace.
-              </CardDescription>
+              <CardTitle id={`${sections[0]!.id}-title`}>{t("settings.profile")}</CardTitle>
+              <CardDescription>{t("settings.profileDescription")}</CardDescription>
             </CardHeader>
 
             <form
@@ -312,7 +340,7 @@ function SettingsPage({
                       )}
                     >
                       <Upload aria-hidden="true" />
-                      Upload a photo
+                      {t("settings.uploadPhoto")}
                     </Label>
                     <input
                       id={avatarInputId}
@@ -352,7 +380,7 @@ function SettingsPage({
               </CardContent>
 
               <CardFooter className="mt-6 justify-end border-t pt-6">
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">{t("settings.save")}</Button>
               </CardFooter>
             </form>
           </Card>
@@ -365,8 +393,8 @@ function SettingsPage({
             aria-labelledby={`${sections[1]!.id}-title`}
           >
             <CardHeader>
-              <CardTitle id={`${sections[1]!.id}-title`}>Preferences</CardTitle>
-              <CardDescription>Choose what we are allowed to send you.</CardDescription>
+              <CardTitle id={`${sections[1]!.id}-title`}>{t("settings.preferences")}</CardTitle>
+              <CardDescription>{t("settings.preferencesDescription")}</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col">
               {preferences.map((preference, index) => (
@@ -409,7 +437,7 @@ function SettingsPage({
               aria-labelledby={`${sections[2]!.id}-title`}
             >
               <CardHeader>
-                <CardTitle id={`${sections[2]!.id}-title`}>Appearance</CardTitle>
+                <CardTitle id={`${sections[2]!.id}-title`}>{t("settings.appearance")}</CardTitle>
                 <CardDescription>
                   These write straight onto the document element, so every token re-resolves at
                   once.
@@ -418,7 +446,7 @@ function SettingsPage({
               <CardContent className="flex flex-col gap-6">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <span id={`${id}-theme-label`} className="text-sm font-medium">
-                    Colour mode
+                    {t("settings.colourMode")}
                   </span>
                   <ToggleGroup
                     type="single"
@@ -428,17 +456,17 @@ function SettingsPage({
                     aria-labelledby={`${id}-theme-label`}
                     onValueChange={(next) => next && applyTheme(next as SettingsPageTheme)}
                   >
-                    <ToggleGroupItem value="light" aria-label="Light">
+                    <ToggleGroupItem value="light">
                       <Sun aria-hidden="true" />
-                      Light
+                      {t("settings.themeLight")}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="dark" aria-label="Dark">
+                    <ToggleGroupItem value="dark">
                       <Moon aria-hidden="true" />
-                      Dark
+                      {t("settings.themeDark")}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="system" aria-label="System">
+                    <ToggleGroupItem value="system">
                       <Monitor aria-hidden="true" />
-                      System
+                      {t("settings.themeSystem")}
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -447,7 +475,7 @@ function SettingsPage({
 
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <span id={`${id}-brand-label`} className="text-sm font-medium">
-                    Brand
+                    {t("settings.brand")}
                   </span>
                   <ToggleGroup
                     type="single"
@@ -456,6 +484,8 @@ function SettingsPage({
                     value={brand}
                     aria-labelledby={`${id}-brand-label`}
                     onValueChange={(next) => next && applyBrand(next)}
+                    // More brands than fit one line on a narrow card; wrapping beats overflow.
+                    className="max-w-full flex-wrap"
                   >
                     {brands.map((option) => (
                       <ToggleGroupItem key={option.value} value={option.value}>
@@ -469,7 +499,7 @@ function SettingsPage({
 
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <span id={`${id}-density-label`} className="text-sm font-medium">
-                    Density
+                    {t("settings.density")}
                   </span>
                   <ToggleGroup
                     type="single"
@@ -479,7 +509,7 @@ function SettingsPage({
                     aria-labelledby={`${id}-density-label`}
                     onValueChange={(next) => next && applyDensity(next as SettingsPageDensity)}
                   >
-                    {densities.map((option) => (
+                    {densitiesFor(t).map((option) => (
                       <ToggleGroupItem key={option.value} value={option.value}>
                         {option.label}
                       </ToggleGroupItem>

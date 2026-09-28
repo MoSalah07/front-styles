@@ -4,6 +4,7 @@
 import * as React from "react";
 import { Menu } from "lucide-react";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 import { Button } from "../components/button";
 import {
   Sheet,
@@ -43,18 +44,22 @@ export interface SiteNavbarProps extends React.ComponentProps<"header"> {
   menuDescription?: string;
 }
 
-const defaultLogo = (
-  <a
-    href="/"
-    className={cn(
-      "inline-flex items-center gap-2 font-display text-2xl tracking-wide",
-      "rounded-control outline-none focus-visible:ring-2 focus-visible:ring-ring",
-    )}
-  >
-    <span className="inline-block size-6 rounded-sm bg-primary" aria-hidden="true" />
-    <span className="sr-only">Home</span>
-  </a>
-);
+function DefaultLogo() {
+  const t = useT();
+
+  return (
+    <a
+      href="/"
+      className={cn(
+        "inline-flex items-center gap-2 font-display text-2xl tracking-wide",
+        "rounded-control outline-none focus-visible:ring-2 focus-visible:ring-ring",
+      )}
+    >
+      <span className="inline-block size-6 rounded-sm bg-primary" aria-hidden="true" />
+      <span className="sr-only">{t("siteNavbar.home")}</span>
+    </a>
+  );
+}
 
 function externalProps(link: SiteNavbarLink) {
   return link.external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
@@ -62,18 +67,24 @@ function externalProps(link: SiteNavbarLink) {
 
 function SiteNavbar({
   className,
-  logo = defaultLogo,
+  logo = <DefaultLogo />,
   links = [],
   actions,
   mobileActions,
   sticky = true,
-  navLabel = "Primary",
-  menuLabel = "Open menu",
-  menuTitle = "Menu",
-  menuDescription = "Site navigation",
+  navLabel: navLabelProp,
+  menuLabel: menuLabelProp,
+  menuTitle: menuTitleProp,
+  menuDescription: menuDescriptionProp,
   children,
   ...props
 }: SiteNavbarProps) {
+  const t = useT();
+  const navLabel = navLabelProp ?? t("siteNavbar.nav");
+  const menuLabel = menuLabelProp ?? t("siteNavbar.openMenu");
+  const menuTitle = menuTitleProp ?? t("siteNavbar.menuTitle");
+  const menuDescription = menuDescriptionProp ?? t("siteNavbar.menuDescription");
+
   const [open, setOpen] = React.useState(false);
 
   return (

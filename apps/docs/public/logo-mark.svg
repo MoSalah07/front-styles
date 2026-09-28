@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 32 32" role="img" aria-labelledby="design-eg-mark-title">
+  <title id="design-eg-mark-title">design-eg</title>
+  <desc>A crimson tile with a bold E knocked out of it.</desc>
+  <!-- The counter is a hole, not a fill, so the mark sits on any surface. -->
+  <path fill="#e50914" fill-rule="evenodd" d="M7 0 H25 A7 7 0 0 1 32 7 V25 A7 7 0 0 1 25 32 H7 A7 7 0 0 1 0 25 V7 A7 7 0 0 1 7 0 Z M8.5 7.5 H23.5 V11.5 H12.5 V14 H19.5 V18 H12.5 V20.5 H23.5 V24.5 H8.5 Z"/>
+</svg>

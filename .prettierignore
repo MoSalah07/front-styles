@@ -3,4 +3,16 @@ dist
 .next
 .turbo
 pnpm-lock.yaml
+
+# Generated, and rewritten by a build. Formatting them means `pnpm build` and
+# `pnpm format:check` can never both pass: the build minifies, Prettier expands,
+# and the next build minifies again.
 apps/docs/public/r
+apps/docs/public/docs
+apps/docs/public/docs.md
+packages/mcp/src/catalogue.generated.json
+
+# Playwright writes these; the snapshots are binary.
+tooling/vrt/test-results
+tooling/vrt/playwright-report
+tooling/vrt/tests/__screenshots__

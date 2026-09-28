@@ -41,9 +41,11 @@
     "radius": { "type": "string" },
     "fonts": {
       "type": "object",
+      "description": "Font stacks emitted as --font-<key>. Script-specific keys use the language subtag they serve (ar, hi), and the base layer selects them with :lang().",
       "properties": {
         "body": { "type": "string" },
         "ar": { "type": "string" },
+        "hi": { "type": "string" },
         "title": { "type": "string" },
         "code": { "type": "string" }
       }

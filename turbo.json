@@ -4,7 +4,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/r/**"]
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        "public/r/**",
+        "public/docs/**",
+        "public/docs.md"
+      ]
     },
     "dev": {
       "cache": false,
@@ -15,7 +22,7 @@
       "dependsOn": ["^build"]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "build"]
     },
     "lint": {
       "dependsOn": ["//#lint:tokens", "//#lint:css"]

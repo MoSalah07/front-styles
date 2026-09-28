@@ -1,0 +1,210 @@
+{
+  "site": {
+    "tagline": "A cinematic, RTL-first React design system.",
+    "description": "design-eg is an open-source React design system: contrast-checked design tokens, accessible Radix + Tailwind v4 components, ready-made blocks and page templates, plus a CLI that copies the source into your project.",
+    "keywords": [
+      "react design system",
+      "tailwind v4 components",
+      "radix ui",
+      "shadcn registry",
+      "rtl components",
+      "arabic ui kit",
+      "design tokens",
+      "dark mode"
+    ]
+  },
+  "nav": {
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "documentation": "Documentation",
+    "docs": "Docs",
+    "templates": "Templates",
+    "tokens": "Tokens",
+    "overview": "Overview",
+    "templateGallery": "Template gallery",
+    "openMenu": "Open the menu",
+    "menuDescription": "Every component, block and template in the registry.",
+    "itemCount": {
+      "one": "{count} item",
+      "other": "{count} items"
+    },
+    "language": "Language"
+  },
+  "groups": {
+    "Foundations": "Foundations",
+    "Forms": "Forms",
+    "Overlays": "Overlays",
+    "Navigation": "Navigation",
+    "Data display": "Data display",
+    "Feedback": "Feedback",
+    "Components": "Components",
+    "Blocks": "Blocks",
+    "Templates": "Templates"
+  },
+  "home": {
+    "badge": "v0.1 · foundation release",
+    "headline": "Build interfaces that feel {accent}.",
+    "accent": "cinematic",
+    "browseDocs": "Browse the docs",
+    "starOnGithub": "Star on GitHub",
+    "open": "Open",
+    "catalogue": {
+      "components": {
+        "label": "Components",
+        "body": "Buttons, fields, overlays, navigation and feedback primitives built on Radix."
+      },
+      "blocks": {
+        "label": "Blocks",
+        "body": "Composite sections: heroes, pricing tables, data tables, stat grids, filter bars."
+      },
+      "templates": {
+        "label": "Page templates",
+        "body": "Whole screens: sign-in, sign-up, OTP, settings, a dashboard shell and error pages."
+      }
+    },
+    "features": {
+      "tokens": {
+        "title": "Tokens compiled from one seed",
+        "body": "A brand is a JSON file. The compiler derives OKLCH ramps, semantic roles for light and dark, and fails the build below WCAG AA."
+      },
+      "rtl": {
+        "title": "RTL and Arabic first",
+        "body": "Logical properties everywhere, a dedicated font stack per script and tuned line-height. Flip dir and nothing breaks."
+      },
+      "source": {
+        "title": "Own the source",
+        "body": "Install from npm or copy components with the CLI. Every item is a shadcn-compatible registry entry."
+      },
+      "radix": {
+        "title": "Radix under the hood",
+        "body": "Keyboard navigation, focus management and ARIA come from Radix primitives. Styling comes from tokens."
+      }
+    },
+    "sampleTitle": "This is a sample of the library.",
+    "sampleBody": {
+      "one": "The single item has its own page, with a live preview, the source and its dependency list.",
+      "other": "Every one of the {count} items has its own page, with a live preview, the source and its dependency list."
+    },
+    "goToDocs": "Go to the docs",
+    "source": "Source"
+  },
+  "docsHub": {
+    "title": "Documentation",
+    "intro": "{components} primitives, {blocks} composite blocks and {templates} page templates. Every page previews in whichever theme, brand, language and density you pick in the bar above, because the controls live in the shell rather than in the demo.",
+    "badge": {
+      "one": "{count} registry item",
+      "other": "{count} registry items"
+    },
+    "startWithButton": "Start with Button",
+    "install": "Install",
+    "installCopy": "Or copy the source into your project and own it from there:",
+    "installStyles": "Either way, import the stylesheet once, after Tailwind:",
+    "everything": "Everything in the registry",
+    "forMachines": "For assistants and scripts",
+    "forMachinesIntro": "Everything here is also machine-readable, generated from the same sources as the pages. The URLs are stable.",
+    "machineLinks": {
+      "projectMap": "Project map",
+      "fullApi": "Full API surface, one fetch",
+      "pageAsMarkdown": "This page as Markdown",
+      "itemAsMarkdown": "Any item as Markdown",
+      "registryIndex": "Registry index",
+      "oneItem": "One registry item"
+    }
+  },
+  "item": {
+    "installation": "Installation",
+    "orShadcn": "Or through the shadcn CLI:",
+    "example": "Example",
+    "anatomy": "Anatomy",
+    "props": "Props",
+    "propDefault": "Default",
+    "propName": "Prop",
+    "propType": "Type",
+    "propDescription": "Description",
+    "notes": "Notes",
+    "dependencies": "npm dependencies",
+    "noDependencies": "None beyond React.",
+    "registryDependencies": "Registry dependencies",
+    "standalone": "Standalone."
+  },
+  "templatesPage": {
+    "title": "Template gallery",
+    "intro": "{count} whole pages, each composed only from primitives and blocks in this registry. They are fully controlled: they render and validate, and hand the values back to you rather than navigating by themselves.",
+    "open": "Open"
+  },
+  "showcase": {
+    "button": {
+      "title": "Button",
+      "description": "Six variants, six sizes, loading state and asChild composition. Hover and active colours come from the primary-hover and primary-active tokens, so every brand gets correct feedback for free."
+    },
+    "fields": {
+      "title": "Input, Label, Switch",
+      "description": "Form controls share one height scale (--control-h-*) that reacts to the density switch above. Focus rings use the ring token and keep a 2px offset for visibility on any surface."
+    },
+    "card": {
+      "title": "Card",
+      "description": "Header grid with an optional action slot, content and footer. Elevation uses shadow-1 in light mode and a hairline ring in dark mode, the same trick the best dark UIs use."
+    },
+    "badge": {
+      "title": "Badge",
+      "description": "Status colours are separate ramps (success, warning, danger, info) so they never collide with the brand colour, even when the brand itself is red."
+    },
+    "demo": {
+      "add": "Add",
+      "perMonth": "/ month",
+      "featureProjects": "Unlimited projects",
+      "featureSupport": "Priority support",
+      "featureCancel": "Cancel anytime",
+      "paid": "Paid",
+      "beta": "Beta",
+      "continue": "Continue",
+      "delete": "Delete",
+      "saving": "Saving",
+      "disabled": "Disabled",
+      "notifications": "Notifications",
+      "email": "Email",
+      "password": "Password",
+      "withError": "With an error",
+      "invalidEmail": "Enter a valid email address.",
+      "rememberMe": "Remember me on this device",
+      "signIn": "Sign in",
+      "monthlyPlan": "Monthly plan",
+      "planBlurb": "Everything you need to ship.",
+      "popular": "Popular",
+      "choosePlan": "Choose plan",
+      "loadingState": "Loading state",
+      "skeletonBlurb": "Skeletons shimmer with a foreground-tinted gradient.",
+      "pending": "Pending",
+      "failed": "Failed"
+    }
+  },
+  "og": {
+    "openSource": "Open source · MIT",
+    "stack": "React · Radix · Tailwind v4",
+    "homeAlt": "design-eg: a cinematic, RTL-first React design system",
+    "catalogueMeta": "{components} components · {blocks} blocks · {templates} templates",
+    "docsAlt": "The design-eg component index",
+    "docsTitle": "The component index",
+    "docsDescription": "{components} primitives, {blocks} composite blocks and {templates} page templates. Every one has a live preview, its source, its anatomy and the command that copies it into your project.",
+    "templatesAlt": "The design-eg template gallery",
+    "templatesTitle": "Whole screens, not snippets",
+    "templatesDescription": "Sign-in, sign-up, OTP verification, settings, a dashboard shell and the error pages — each one a registry item you install with a single command and then own outright.",
+    "templatesMeta": {
+      "one": "{count} template",
+      "other": "{count} templates"
+    }
+  },
+  "playground": {
+    "brand": "Brand",
+    "density": "Density",
+    "compact": "Compact",
+    "comfortable": "Default",
+    "spacious": "Airy",
+    "tokens": "Tokens"
+  },
+  "swatches": {
+    "title": "Tokens",
+    "intro": "Each brand is one JSON seed. The compiler derives OKLCH ramps, maps them onto semantic roles for light and dark, and fails the build if any text pair falls under WCAG AA.",
+    "compiledBrands": "Compiled brands"
+  }
+}

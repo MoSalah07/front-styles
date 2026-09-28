@@ -1,0 +1,214 @@
+{
+  "site": {
+    "tagline": "Un design system React cinématographique, pensé RTL d’abord.",
+    "description": "design-eg est un design system React open source : des tokens de design dont le contraste est vérifié, des composants Radix et Tailwind v4 accessibles, des blocs et des gabarits de pages prêts à l’emploi, et un CLI qui copie le code source directement dans votre projet.",
+    "keywords": [
+      "design system react",
+      "composants tailwind v4",
+      "radix ui",
+      "registre shadcn",
+      "composants rtl",
+      "kit ui arabe",
+      "tokens de design",
+      "mode sombre"
+    ]
+  },
+  "nav": {
+    "primary": "Navigation principale",
+    "secondary": "Navigation secondaire",
+    "documentation": "Documentation",
+    "docs": "Docs",
+    "templates": "Gabarits",
+    "tokens": "Tokens",
+    "overview": "Vue d’ensemble",
+    "templateGallery": "Galerie de gabarits",
+    "openMenu": "Ouvrir le menu",
+    "menuDescription": "Tous les composants, blocs et gabarits du registre.",
+    "itemCount": {
+      "one": "{count} élément",
+      "many": "{count} d’éléments",
+      "other": "{count} éléments"
+    },
+    "language": "Langue"
+  },
+  "groups": {
+    "Foundations": "Fondations",
+    "Forms": "Formulaires",
+    "Overlays": "Surcouches",
+    "Navigation": "Navigation",
+    "Data display": "Affichage des données",
+    "Feedback": "Retour d’information",
+    "Components": "Composants",
+    "Blocks": "Blocs",
+    "Templates": "Gabarits"
+  },
+  "home": {
+    "badge": "v0.1 · version fondatrice",
+    "headline": "Créez des interfaces à la présence {accent}.",
+    "accent": "cinématographique",
+    "browseDocs": "Parcourir la documentation",
+    "starOnGithub": "Mettre une étoile sur GitHub",
+    "open": "Ouvrir",
+    "catalogue": {
+      "components": {
+        "label": "Composants",
+        "body": "Boutons, champs, surcouches, navigation et retours d’information, bâtis sur Radix."
+      },
+      "blocks": {
+        "label": "Blocs",
+        "body": "Sections composites : héros, grilles tarifaires, tableaux de données, grilles de statistiques, barres de filtres."
+      },
+      "templates": {
+        "label": "Gabarits de pages",
+        "body": "Des écrans entiers : connexion, inscription, code à usage unique, paramètres, coquille de tableau de bord et pages d’erreur."
+      }
+    },
+    "features": {
+      "tokens": {
+        "title": "Des tokens dérivés d’une seule couleur",
+        "body": "Une marque tient dans un fichier JSON. Le compilateur en dérive les rampes OKLCH et les rôles sémantiques pour les modes clair et sombre, et fait échouer le build sous le seuil WCAG AA."
+      },
+      "rtl": {
+        "title": "RTL et arabe en premier",
+        "body": "Des propriétés logiques partout, une pile de polices dédiée à chaque écriture et une hauteur de ligne ajustée. Inversez la direction : rien ne casse."
+      },
+      "source": {
+        "title": "Le code vous appartient",
+        "body": "Installez depuis npm, ou copiez les composants avec le CLI. Chaque élément est une entrée de registre compatible shadcn."
+      },
+      "radix": {
+        "title": "Radix en dessous",
+        "body": "La navigation au clavier, la gestion du focus et les attributs ARIA viennent des primitives Radix. Le style, lui, vient des tokens."
+      }
+    },
+    "sampleTitle": "Ceci n’est qu’un échantillon de la bibliothèque.",
+    "sampleBody": {
+      "one": "L’unique élément a sa propre page, avec un aperçu interactif, le code source et la liste de ses dépendances.",
+      "many": "Chacun des {count} d’éléments a sa propre page, avec un aperçu interactif, le code source et la liste de ses dépendances.",
+      "other": "Chacun des {count} éléments a sa propre page, avec un aperçu interactif, le code source et la liste de ses dépendances."
+    },
+    "goToDocs": "Aller à la documentation",
+    "source": "Code source"
+  },
+  "docsHub": {
+    "title": "Documentation",
+    "intro": "{components} primitives, {blocks} blocs composites et {templates} gabarits de pages. Chaque page s’affiche dans le thème, la marque, la langue et la densité choisis dans la barre ci-dessus, parce que les contrôles vivent dans la coquille et non dans la démonstration.",
+    "badge": {
+      "one": "{count} élément du registre",
+      "many": "{count} d’éléments du registre",
+      "other": "{count} éléments du registre"
+    },
+    "startWithButton": "Commencer par Button",
+    "install": "Installation",
+    "installCopy": "Ou copiez le code source dans votre projet, pour en devenir propriétaire :",
+    "installStyles": "Dans les deux cas, importez la feuille de style une fois, après Tailwind :",
+    "everything": "Tout le registre",
+    "forMachines": "Pour les assistants et les scripts",
+    "forMachinesIntro": "Tout ce qui se trouve ici est aussi lisible par une machine, généré depuis les mêmes sources que les pages. Les URL sont stables.",
+    "machineLinks": {
+      "projectMap": "Carte du projet",
+      "fullApi": "Toute la surface d’API, en une requête",
+      "pageAsMarkdown": "Cette page en Markdown",
+      "itemAsMarkdown": "N’importe quel élément en Markdown",
+      "registryIndex": "Index du registre",
+      "oneItem": "Un élément du registre"
+    }
+  },
+  "item": {
+    "installation": "Installation",
+    "orShadcn": "Ou via le CLI shadcn :",
+    "example": "Exemple",
+    "anatomy": "Anatomie",
+    "props": "Props",
+    "propDefault": "Valeur par défaut",
+    "propName": "Prop",
+    "propType": "Type",
+    "propDescription": "Description",
+    "notes": "Notes",
+    "dependencies": "Dépendances npm",
+    "noDependencies": "Aucune, hormis React.",
+    "registryDependencies": "Dépendances du registre",
+    "standalone": "Autonome."
+  },
+  "templatesPage": {
+    "title": "Galerie de gabarits",
+    "intro": "{count} pages entières, composées uniquement de primitives et de blocs de ce registre. Elles sont entièrement contrôlées : elles s’affichent, valident la saisie et vous rendent les valeurs plutôt que de naviguer d’elles-mêmes.",
+    "open": "Ouvrir"
+  },
+  "showcase": {
+    "button": {
+      "title": "Button",
+      "description": "Six variantes, six tailles, un état de chargement et la composition via asChild. Les couleurs de survol et d’activation viennent des tokens primary-hover et primary-active, si bien que chaque marque obtient le bon retour visuel sans effort."
+    },
+    "fields": {
+      "title": "Input, Label, Switch",
+      "description": "Les contrôles de formulaire partagent une seule échelle de hauteur (--control-h-*) qui réagit au sélecteur de densité ci-dessus. Les anneaux de focus utilisent le token ring et gardent un décalage de 2 px pour rester visibles sur n’importe quelle surface."
+    },
+    "card": {
+      "title": "Card",
+      "description": "Une grille d’en-tête avec un emplacement d’action facultatif, un contenu et un pied. L’élévation utilise shadow-1 en mode clair et un anneau d’un pixel en mode sombre, la même astuce que les meilleures interfaces sombres."
+    },
+    "badge": {
+      "title": "Badge",
+      "description": "Les couleurs d’état sont des rampes distinctes (success, warning, danger, info), pour qu’elles n’entrent jamais en collision avec la couleur de marque, même quand celle-ci est rouge."
+    },
+    "demo": {
+      "add": "Ajouter",
+      "perMonth": "/ mois",
+      "featureProjects": "Projets illimités",
+      "featureSupport": "Support prioritaire",
+      "featureCancel": "Annulation à tout moment",
+      "paid": "Payé",
+      "beta": "Bêta",
+      "continue": "Continuer",
+      "delete": "Supprimer",
+      "saving": "Enregistrement",
+      "disabled": "Désactivé",
+      "notifications": "Notifications",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "withError": "Avec une erreur",
+      "invalidEmail": "Saisissez une adresse e-mail valide.",
+      "rememberMe": "Se souvenir de moi sur cet appareil",
+      "signIn": "Se connecter",
+      "monthlyPlan": "Forfait mensuel",
+      "planBlurb": "Tout ce qu’il vous faut pour livrer.",
+      "popular": "Populaire",
+      "choosePlan": "Choisir ce forfait",
+      "loadingState": "État de chargement",
+      "skeletonBlurb": "Les squelettes scintillent avec un dégradé teinté par la couleur du texte.",
+      "pending": "En attente",
+      "failed": "Échec"
+    }
+  },
+  "og": {
+    "openSource": "Open source · MIT",
+    "stack": "React · Radix · Tailwind v4",
+    "homeAlt": "design-eg: un design system React cinématographique, pensé RTL d’abord",
+    "catalogueMeta": "{components} composants · {blocks} blocs · {templates} gabarits",
+    "docsAlt": "L’index des composants design-eg",
+    "docsTitle": "L’index des composants",
+    "docsDescription": "{components} primitives, {blocks} blocs composites et {templates} gabarits de pages. Chacun a un aperçu interactif, son code source, son anatomie et la commande qui le copie dans votre projet.",
+    "templatesAlt": "La galerie de gabarits design-eg",
+    "templatesTitle": "Des écrans entiers, pas des extraits",
+    "templatesDescription": "Connexion, inscription, vérification par code, paramètres, coquille de tableau de bord et pages d’erreur — chacun un élément du registre que vous installez d’une seule commande, puis possédez entièrement.",
+    "templatesMeta": {
+      "one": "{count} gabarit",
+      "many": "{count} de gabarits",
+      "other": "{count} gabarits"
+    }
+  },
+  "playground": {
+    "brand": "Marque",
+    "density": "Densité",
+    "compact": "Compact",
+    "comfortable": "Par défaut",
+    "spacious": "Aéré",
+    "tokens": "Tokens"
+  },
+  "swatches": {
+    "title": "Tokens",
+    "intro": "Chaque marque tient dans une seule graine JSON. Le compilateur en dérive les rampes OKLCH, les associe à des rôles sémantiques pour les modes clair et sombre, et fait échouer le build si une paire de texte passe sous le seuil WCAG AA.",
+    "compiledBrands": "Marques compilées"
+  }
+}

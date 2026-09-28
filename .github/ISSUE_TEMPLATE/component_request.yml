@@ -1,0 +1,67 @@
+name: Component, block or template request
+description: Propose something the library does not have yet.
+labels: ["enhancement", "needs triage"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Kebab-case, the way it would appear in the registry.
+      placeholder: "date-picker"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      description: >
+        A primitive is a single control. A block composes primitives into
+        something an application drops in. A template is a whole page.
+      options:
+        - Primitive (packages/ui/src/components)
+        - Block (packages/ui/src/blocks)
+        - Template (packages/ui/src/templates)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you are building that needs it
+      description: The concrete use case, not the abstract gap. This decides the API.
+    validations:
+      required: true
+
+  - type: input
+    id: primitive
+    attributes:
+      label: Radix primitive it should wrap
+      description: >
+        If the behaviour exists in Radix, we wrap it rather than rebuilding it.
+        Leave blank if there is none.
+      placeholder: "Popover + Calendar (hand-rolled)"
+
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: The smallest usage example that would satisfy your case.
+      render: tsx
+
+  - type: textarea
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: How shadcn/ui, Radix Themes, Material or others solve it, and where they fall short for you.
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints it has to meet
+      description: Everything in this library has to clear these. Note anything that looks hard.
+      options:
+        - label: Works in RTL with logical properties only
+        - label: Works in light and dark without a filter
+        - label: Keyboard accessible with a visible focus ring
+        - label: Adds no npm dependency outside the ones already installed

@@ -27,6 +27,7 @@ import {
   SidebarTrigger,
 } from "../blocks/app-sidebar";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export interface DashboardShellNavItem {
   /** Row label, also used as the collapsed-mode tooltip. */
@@ -121,9 +122,9 @@ function DashboardShell({
   actions,
   user,
   userMenuItems = defaultMenuItems,
-  signOutLabel = "Sign out",
+  signOutLabel: signOutLabelProp,
   onSignOut,
-  sidebarLabel = "Main navigation",
+  sidebarLabel: sidebarLabelProp,
   defaultSidebarOpen = true,
   sidebarOpen,
   onSidebarOpenChange,
@@ -131,6 +132,9 @@ function DashboardShell({
   children,
   ...props
 }: DashboardShellProps) {
+  const t = useT();
+  const signOutLabel = signOutLabelProp ?? t("dashboardShell.signOut");
+  const sidebarLabel = sidebarLabelProp ?? t("dashboardShell.sidebarLabel");
   return (
     <SidebarProvider
       data-slot="dashboard-shell"

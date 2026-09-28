@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { Dialog as SheetPrimitive } from "radix-ui";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 const sheetVariants = cva(
   [
@@ -95,9 +96,12 @@ function SheetContent({
   children,
   side = "end",
   showCloseButton = true,
-  closeLabel = "Close",
+  closeLabel: closeLabelProp,
   ...props
 }: SheetContentProps) {
+  const t = useT();
+  const closeLabel = closeLabelProp ?? t("sheet.close");
+
   return (
     <SheetPortal>
       <SheetOverlay />

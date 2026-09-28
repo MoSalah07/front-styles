@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea
+    url: https://github.com/design-eg/design-eg/discussions
+    about: Usage questions, theming help and half-formed ideas belong in Discussions.
+  - name: Security vulnerability
+    url: https://github.com/design-eg/design-eg/security/advisories/new
+    about: Report it privately. Never open a public issue for a vulnerability.
+  - name: Documentation and examples
+    url: https://design-eg.vercel.app/docs
+    about: Every component has a page with a live example and its install command.

@@ -6,6 +6,7 @@ import { ArrowLeft, KeyRound } from "lucide-react";
 import { Button } from "../components/button";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../components/input-otp";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 /**
  * Hides most of an email local part or a phone number, keeping just enough for
@@ -62,18 +63,18 @@ export interface OtpVerifyProps extends Omit<React.ComponentProps<"div">, "onSub
 function OtpVerify({
   className,
   logo,
-  eyebrow = "Two-step verification",
-  title = "Enter your code",
-  subtitle = "We sent a one-time code to",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  subtitle: subtitleProp,
   destination,
   maskedDestination,
   length = 6,
-  fieldLabel = "One-time code",
-  submitLabel = "Verify",
-  resendPrompt = "Did not get it?",
-  resendLabel = "Send a new code",
+  fieldLabel: fieldLabelProp,
+  submitLabel: submitLabelProp,
+  resendPrompt: resendPromptProp,
+  resendLabel: resendLabelProp,
   resendSeconds = 30,
-  backLabel = "Back to sign in",
+  backLabel: backLabelProp,
   backHref,
   onBack,
   loading = false,
@@ -82,6 +83,15 @@ function OtpVerify({
   onResend,
   ...props
 }: OtpVerifyProps) {
+  const t = useT();
+  const eyebrow = eyebrowProp ?? t("otp.eyebrow");
+  const title = titleProp ?? t("otp.title");
+  const subtitle = subtitleProp ?? t("otp.subtitle");
+  const fieldLabel = fieldLabelProp ?? t("otp.fieldLabel");
+  const submitLabel = submitLabelProp ?? t("otp.submit");
+  const resendPrompt = resendPromptProp ?? t("otp.resendPrompt");
+  const resendLabel = resendLabelProp ?? t("otp.resend");
+  const backLabel = backLabelProp ?? t("otp.back");
   const id = React.useId();
   const errorId = `${id}-error`;
 
@@ -261,7 +271,7 @@ function OtpVerify({
           </button>
           {remaining > 0 ? (
             <span aria-live="polite" className="ms-1 tabular-nums">
-              ({remaining}s)
+              {t("otp.resendCountdown", { seconds: remaining })}
             </span>
           ) : null}
         </p>

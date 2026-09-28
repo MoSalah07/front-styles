@@ -15,6 +15,7 @@ import {
   Skeleton,
   Switch,
 } from "@design-eg/ui";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 function Section({
   id,
@@ -38,24 +39,23 @@ function Section({
   );
 }
 
-export function Showcase() {
+export async function Showcase() {
+  const { showcase } = await getDictionary();
+  const d = showcase.demo;
+
   return (
     <div className="space-y-12">
-      <Section
-        id="button"
-        title="Button"
-        description="Six variants, six sizes, loading state and asChild composition. Hover and active colours come from the primary-hover and primary-active tokens, so every brand gets correct feedback for free."
-      >
+      <Section id="button" title={showcase.button.title} description={showcase.button.description}>
         <div className="flex flex-wrap items-center gap-3">
           <Button>
-            Continue <ArrowRight />
+            {d.continue} <ArrowRight />
           </Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="link">Link</Button>
           <Button variant="destructive">
-            <Trash2 /> Delete
+            <Trash2 /> {d.delete}
           </Button>
         </div>
         <Separator className="my-5" />
@@ -63,72 +63,64 @@ export function Showcase() {
           <Button size="sm">Small</Button>
           <Button size="md">Medium</Button>
           <Button size="lg">Large</Button>
-          <Button size="icon" aria-label="Add">
+          <Button size="icon" aria-label={d.add}>
             <Plus />
           </Button>
-          <Button size="icon-sm" variant="outline" aria-label="Notifications">
+          <Button size="icon-sm" variant="outline" aria-label={d.notifications}>
             <Bell />
           </Button>
-          <Button loading>Saving</Button>
-          <Button disabled>Disabled</Button>
+          <Button loading>{d.saving}</Button>
+          <Button disabled>{d.disabled}</Button>
         </div>
       </Section>
 
-      <Section
-        id="input"
-        title="Input, Label, Switch"
-        description="Form controls share one height scale (--control-h-*) that reacts to the density switch above. Focus rings use the ring token and keep a 2px offset for visibility on any surface."
-      >
+      <Section id="input" title={showcase.fields.title} description={showcase.fields.description}>
         {/* A real form element for correct labelling and autofill. It stays a server
             component, so the demo submit button is inert rather than handler-driven. */}
         <form className="grid max-w-md gap-5">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{d.email}</Label>
             <Input id="email" type="email" placeholder="you@example.com" autoComplete="email" />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="pw">Password</Label>
+            <Label htmlFor="pw">{d.password}</Label>
             <Input id="pw" type="password" placeholder="••••••••" autoComplete="current-password" />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="bad">With an error</Label>
+            <Label htmlFor="bad">{d.withError}</Label>
             <Input id="bad" aria-invalid defaultValue="not-an-email" aria-describedby="bad-msg" />
             <p id="bad-msg" className="text-xs text-destructive">
-              Enter a valid email address.
+              {d.invalidEmail}
             </p>
           </div>
           <div className="flex items-center justify-between rounded-control border p-3">
             <Label htmlFor="remember" className="cursor-pointer">
-              Remember me on this device
+              {d.rememberMe}
             </Label>
             <Switch id="remember" defaultChecked />
           </div>
           <Button type="button" className="w-full" size="lg">
-            Sign in
+            {d.signIn}
           </Button>
         </form>
       </Section>
 
-      <Section
-        id="card"
-        title="Card"
-        description="Header grid with an optional action slot, content and footer. Elevation uses shadow-1 in light mode and a hairline ring in dark mode, the same trick the best dark UIs use."
-      >
+      <Section id="card" title={showcase.card.title} description={showcase.card.description}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Monthly plan</CardTitle>
-              <CardDescription>Everything you need to ship.</CardDescription>
+              <CardTitle>{d.monthlyPlan}</CardTitle>
+              <CardDescription>{d.planBlurb}</CardDescription>
               <CardAction>
-                <Badge variant="soft">Popular</Badge>
+                <Badge variant="soft">{d.popular}</Badge>
               </CardAction>
             </CardHeader>
             <CardContent>
               <p className="text-display font-display leading-none">
-                $12<span className="text-body text-muted-foreground font-sans"> / month</span>
+                $12<span className="text-body text-muted-foreground font-sans"> {d.perMonth}</span>
               </p>
               <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                {["Unlimited projects", "Priority support", "Cancel anytime"].map((f) => (
+                {[d.featureProjects, d.featureSupport, d.featureCancel].map((f) => (
                   <li key={f} className="flex items-center gap-2">
                     <Check className="size-4 text-success" /> {f}
                   </li>
@@ -136,15 +128,13 @@ export function Showcase() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Choose plan</Button>
+              <Button className="w-full">{d.choosePlan}</Button>
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Loading state</CardTitle>
-              <CardDescription>
-                Skeletons shimmer with a foreground-tinted gradient.
-              </CardDescription>
+              <CardTitle>{d.loadingState}</CardTitle>
+              <CardDescription>{d.skeletonBlurb}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <Skeleton className="h-4 w-3/4" />
@@ -162,22 +152,18 @@ export function Showcase() {
         </div>
       </Section>
 
-      <Section
-        id="badge"
-        title="Badge"
-        description="Status colours are separate ramps (success, warning, danger, info) so they never collide with the brand colour, even when the brand itself is red."
-      >
+      <Section id="badge" title={showcase.badge.title} description={showcase.badge.description}>
         <div className="flex flex-wrap items-center gap-2">
           <Badge>Default</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="outline">Outline</Badge>
           <Badge variant="soft">Soft</Badge>
           <Badge variant="success">
-            <Check /> Paid
+            <Check /> {d.paid}
           </Badge>
-          <Badge variant="warning">Pending</Badge>
-          <Badge variant="destructive">Failed</Badge>
-          <Badge variant="info">Beta</Badge>
+          <Badge variant="warning">{d.pending}</Badge>
+          <Badge variant="destructive">{d.failed}</Badge>
+          <Badge variant="info">{d.beta}</Badge>
         </div>
       </Section>
     </div>

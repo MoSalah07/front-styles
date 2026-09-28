@@ -8,6 +8,7 @@ import { Input } from "../components/input";
 import { Label } from "../components/label";
 import { Switch } from "../components/switch";
 import { cn } from "../lib/cn";
+import { useT, type TranslateFn } from "../lib/i18n";
 
 export interface LoginSplitValues {
   email: string;
@@ -22,23 +23,30 @@ export interface LoginSplitPoint {
   description?: React.ReactNode;
 }
 
-const defaultPoints: LoginSplitPoint[] = [
-  {
-    icon: <Zap aria-hidden="true" />,
-    title: "Ship in minutes",
-    description: "Tokens, primitives and blocks that already agree with each other.",
-  },
-  {
-    icon: <ShieldCheck aria-hidden="true" />,
-    title: "Accessible by default",
-    description: "Every control is keyboard reachable and correctly labelled.",
-  },
-  {
-    icon: <Sparkles aria-hidden="true" />,
-    title: "RTL and dark native",
-    description: "Arabic and English, light and dark, from one source of truth.",
-  },
-];
+/**
+ * Built from the catalogue rather than declared as a constant: a module-level
+ * array is evaluated once at import, long before any provider exists, so it
+ * could only ever hold one language.
+ */
+function defaultPointsFor(t: TranslateFn): LoginSplitPoint[] {
+  return [
+    {
+      icon: <Zap aria-hidden="true" />,
+      title: t("login.pointShipTitle"),
+      description: t("login.pointShipDescription"),
+    },
+    {
+      icon: <ShieldCheck aria-hidden="true" />,
+      title: t("login.pointAccessibleTitle"),
+      description: t("login.pointAccessibleDescription"),
+    },
+    {
+      icon: <Sparkles aria-hidden="true" />,
+      title: t("login.pointRtlTitle"),
+      description: t("login.pointRtlDescription"),
+    },
+  ];
+}
 
 export interface LoginSplitProps extends Omit<React.ComponentProps<"div">, "onSubmit" | "title"> {
   /** Mark or wordmark rendered above the brand headline, and above the form below `lg`. */
@@ -86,22 +94,22 @@ export interface LoginSplitProps extends Omit<React.ComponentProps<"div">, "onSu
 function LoginSplit({
   className,
   logo,
-  brandTitle = "Sign in to the control room.",
-  brandDescription = "One design system for every surface you ship.",
-  points = defaultPoints,
+  brandTitle: brandTitleProp,
+  brandDescription: brandDescriptionProp,
+  points: pointsProp,
   brandPanel,
-  eyebrow = "Welcome back",
-  title = "Sign in",
-  subtitle = "Enter your credentials to continue.",
-  emailLabel = "Email",
-  emailPlaceholder = "you@example.com",
-  passwordLabel = "Password",
-  passwordPlaceholder = "Your password",
-  rememberLabel = "Remember me",
-  forgotLabel = "Forgot password?",
+  eyebrow: eyebrowProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  emailLabel: emailLabelProp,
+  emailPlaceholder: emailPlaceholderProp,
+  passwordLabel: passwordLabelProp,
+  passwordPlaceholder: passwordPlaceholderProp,
+  rememberLabel: rememberLabelProp,
+  forgotLabel: forgotLabelProp,
   forgotHref,
   onForgotPassword,
-  submitLabel = "Sign in",
+  submitLabel: submitLabelProp,
   loading = false,
   error,
   social,
@@ -111,6 +119,20 @@ function LoginSplit({
   onSubmit,
   ...props
 }: LoginSplitProps) {
+  const t = useT();
+  const points = pointsProp ?? defaultPointsFor(t);
+  const brandTitle = brandTitleProp ?? t("login.brandTitle");
+  const brandDescription = brandDescriptionProp ?? t("login.brandDescription");
+  const eyebrow = eyebrowProp ?? t("login.eyebrow");
+  const title = titleProp ?? t("login.title");
+  const subtitle = subtitleProp ?? t("login.subtitle");
+  const emailLabel = emailLabelProp ?? t("login.emailLabel");
+  const emailPlaceholder = emailPlaceholderProp ?? t("login.emailPlaceholder");
+  const passwordLabel = passwordLabelProp ?? t("login.passwordLabel");
+  const passwordPlaceholder = passwordPlaceholderProp ?? t("login.passwordPlaceholder");
+  const rememberLabel = rememberLabelProp ?? t("login.remember");
+  const forgotLabel = forgotLabelProp ?? t("login.forgot");
+  const submitLabel = submitLabelProp ?? t("login.submit");
   const id = React.useId();
   const emailId = `${id}-email`;
   const passwordId = `${id}-password`;
@@ -144,7 +166,7 @@ function LoginSplit({
           reading directions without any positioning. */}
       <section
         data-slot="login-split-brand"
-        aria-label="About this product"
+        aria-label={t("login.pointsLabel")}
         className={cn(
           "relative isolate hidden flex-col justify-between gap-12 overflow-hidden p-10 lg:flex xl:p-14",
           "bg-neutral-975 text-neutral-50",
@@ -328,7 +350,7 @@ function LoginSplit({
                     variant="ghost"
                     size="icon-sm"
                     disabled={loading}
-                    aria-label={revealed ? "Hide password" : "Show password"}
+                    aria-label={revealed ? t("login.hidePassword") : t("login.showPassword")}
                     aria-pressed={revealed}
                     aria-controls={passwordId}
                     // Keep the caret where it was: the default mousedown blurs

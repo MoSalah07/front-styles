@@ -36,6 +36,7 @@ import {
 } from "../components/table";
 import { EmptyState } from "./empty-state";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 /** Anything the table knows how to compare or match a search term against. */
 export type DataTableValue = string | number | boolean | Date | null | undefined;
@@ -171,8 +172,8 @@ function DataTable<T>({
   getRowId,
   caption,
   searchable = true,
-  searchPlaceholder = "Search…",
-  searchLabel = "Search rows",
+  searchPlaceholder: searchPlaceholderProp,
+  searchLabel: searchLabelProp,
   selectable = false,
   selectedIds,
   onSelectedIdsChange,
@@ -184,12 +185,17 @@ function DataTable<T>({
   loading = false,
   loadingRows = 5,
   empty,
-  emptyTitle = "No results",
-  emptyDescription = "Nothing matches the current filters.",
+  emptyTitle: emptyTitleProp,
+  emptyDescription: emptyDescriptionProp,
   toolbar,
   onRowClick,
   ...props
 }: DataTableProps<T>) {
+  const t = useT();
+  const searchPlaceholder = searchPlaceholderProp ?? t("dataTable.searchPlaceholder");
+  const searchLabel = searchLabelProp ?? t("dataTable.searchLabel");
+  const emptyTitle = emptyTitleProp ?? t("dataTable.emptyTitle");
+  const emptyDescription = emptyDescriptionProp ?? t("dataTable.emptyDescription");
   const [query, setQuery] = React.useState("");
   const [sort, setSort] = React.useState<DataTableSort | null>(defaultSort ?? null);
   const [page, setPage] = React.useState(0);
@@ -315,11 +321,11 @@ function DataTable<T>({
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" data-slot="data-table-columns-trigger">
                     <SlidersHorizontal aria-hidden="true" />
-                    Columns
+                    {t("dataTable.columns")}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="min-w-44">
-                  <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+                  <DropdownMenuLabel>{t("dataTable.toggleColumns")}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {toggleableColumns.map((column) => (
                     <DropdownMenuCheckboxItem
@@ -353,7 +359,7 @@ function DataTable<T>({
                 <TableHead className="w-10">
                   <Checkbox
                     data-slot="data-table-select-all"
-                    aria-label="Select all rows"
+                    aria-label={t("dataTable.selectAll")}
                     checked={allSelected ? true : someSelected ? "indeterminate" : false}
                     onCheckedChange={(checked) => toggleAll(checked === true)}
                   />
@@ -479,9 +485,10 @@ function DataTable<T>({
           className="flex flex-wrap items-center justify-between gap-3"
         >
           <p data-slot="data-table-status" className="text-xs text-muted-foreground">
+            {/* The count drives the plural form, which in Arabic is one of six. */}
             {selectable
-              ? `${selection.length} of ${sorted.length} row(s) selected.`
-              : `${sorted.length} row(s).`}
+              ? t("dataTable.selectedCount", { count: selection.length, total: sorted.length })
+              : t("dataTable.rowCount", { count: sorted.length })}
           </p>
 
           <Pagination className="mx-0 w-auto">
@@ -490,12 +497,12 @@ function DataTable<T>({
                 <Button
                   variant="outline"
                   size="sm"
-                  aria-label="Previous page"
+                  aria-label={t("dataTable.previousPage")}
                   disabled={safePage === 0}
                   onClick={() => setPage((current) => Math.max(0, current - 1))}
                 >
                   <ChevronLeft aria-hidden="true" className="rtl:-scale-x-100" />
-                  Previous
+                  {t("pagination.previous")}
                 </Button>
               </PaginationItem>
               <PaginationItem>
@@ -504,18 +511,18 @@ function DataTable<T>({
                   aria-live="polite"
                   className="px-2 text-xs tabular-nums text-muted-foreground"
                 >
-                  Page {safePage + 1} of {pageCount}
+                  {t("dataTable.pageStatus", { page: safePage + 1, pages: pageCount })}
                 </span>
               </PaginationItem>
               <PaginationItem>
                 <Button
                   variant="outline"
                   size="sm"
-                  aria-label="Next page"
+                  aria-label={t("dataTable.nextPage")}
                   disabled={safePage >= pageCount - 1}
                   onClick={() => setPage((current) => Math.min(pageCount - 1, current + 1))}
                 >
-                  Next
+                  {t("pagination.next")}
                   <ChevronRight aria-hidden="true" className="rtl:-scale-x-100" />
                 </Button>
               </PaginationItem>

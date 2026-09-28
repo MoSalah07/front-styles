@@ -1,4 +1,5 @@
 import { tokens, brands } from "@design-eg/tokens";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 const RAMPS = ["brand", "neutral", "success", "warning", "danger", "info"] as const;
 
@@ -6,15 +7,14 @@ const RAMPS = ["brand", "neutral", "success", "warning", "danger", "info"] as co
  * Renders every ramp step as a live swatch bound to the CSS variable, so the grid
  * re-colours instantly when the brand switches. Hex labels come from tokens.json.
  */
-export function Swatches() {
+export async function Swatches() {
+  const { swatches } = await getDictionary();
+
   return (
     <section id="tokens" className="scroll-mt-24 space-y-6">
       <div className="space-y-1">
-        <h2 className="text-h3 font-semibold">Tokens</h2>
-        <p className="max-w-prose text-sm text-muted-foreground">
-          Each brand is one JSON seed. The compiler derives OKLCH ramps, maps them onto semantic
-          roles for light and dark, and fails the build if any text pair falls under WCAG AA.
-        </p>
+        <h2 className="text-h3 font-semibold">{swatches.title}</h2>
+        <p className="max-w-prose text-sm text-muted-foreground">{swatches.intro}</p>
       </div>
 
       <div className="space-y-4">
@@ -75,7 +75,7 @@ export function Swatches() {
       </div>
 
       <details className="rounded-card border bg-card p-4 text-sm">
-        <summary className="cursor-pointer font-medium">Compiled brands</summary>
+        <summary className="cursor-pointer font-medium">{swatches.compiledBrands}</summary>
         <ul className="mt-3 grid gap-2 sm:grid-cols-2">
           {brands.map((b) => {
             const brand = tokens.brands[b];

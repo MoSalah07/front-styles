@@ -5,10 +5,13 @@
   "description": "design-eg documentation site and component playground.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "gen:md": "node scripts/gen-md.mjs",
+    "build": "node scripts/check-notes-i18n.mjs && node scripts/gen-md.mjs && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\""
+    "clean": "node -e \"const r=(p)=>require('fs').rmSync(p,{recursive:true,force:true});r('.next');r('public/docs');r('public/docs.md')\"",
+    "lint:notes": "node scripts/check-notes-i18n.mjs",
+    "fonts:og": "node scripts/fetch-og-fonts.mjs"
   },
   "dependencies": {
     "@design-eg/tokens": "workspace:*",

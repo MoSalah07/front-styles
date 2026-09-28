@@ -28,7 +28,7 @@ jobs:
       - run: pnpm format:check
 
   lint:
-    name: conventions (tokens · css)
+    name: conventions (eslint · tokens · css)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -39,6 +39,12 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+
+      # Correctness, hooks and accessibility. Layout is Prettier's job, and
+      # eslint-config-prettier switches every stylistic rule off.
+      - name: ESLint
+        run: pnpm lint:js
+
       # Enforces the AGENTS.md styling contract: no raw colours, no literal
       # z-index, no physical-direction utilities.
       - name: Token contract

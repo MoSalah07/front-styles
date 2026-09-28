@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "../components/select";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 export type FilterBarProps = React.ComponentProps<"div">;
 
@@ -37,12 +38,16 @@ export interface FilterBarSearchProps extends Omit<React.ComponentProps<"input">
 
 function FilterBarSearch({
   className,
-  label = "Search",
-  placeholder = "Search…",
+  label: labelProp,
+  placeholder: placeholderProp,
   onValueChange,
   onChange,
   ...props
 }: FilterBarSearchProps) {
+  const t = useT();
+  const label = labelProp ?? t("filterBar.label");
+  const placeholder = placeholderProp ?? t("filterBar.placeholder");
+
   return (
     <div data-slot="filter-bar-search" className={cn("relative w-full sm:w-64", className)}>
       <Search

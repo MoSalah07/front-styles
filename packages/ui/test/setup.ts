@@ -136,6 +136,9 @@ expect.extend({
 // merge fails with TS2428 ("all declarations must have identical type
 // parameters") rather than adding the matcher.
 declare module "vitest" {
+  // T is unused here and has to be: the merge is rejected outright unless the
+  // parameters are repeated exactly as vitest declares them.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> {
     toHaveNoViolations: () => R;
   }

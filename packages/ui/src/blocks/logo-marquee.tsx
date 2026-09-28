@@ -3,6 +3,7 @@
 /** Endlessly scrolling strip of logos that pauses on hover, mirrors its direction in RTL, and falls back to a static wrapped row under reduced motion. */
 import * as React from "react";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 /**
  * Tracks `prefers-reduced-motion`. It starts as `false` so the server and the
@@ -42,11 +43,14 @@ function LogoMarquee({
   gap = "3.5rem",
   pauseOnHover = true,
   fade = true,
-  label = "Logos",
+  label: labelProp,
   style,
   children,
   ...props
 }: LogoMarqueeProps) {
+  const t = useT();
+  const label = labelProp ?? t("logoMarquee.label");
+
   const reduced = usePrefersReducedMotion();
 
   const shell = (

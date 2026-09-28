@@ -5,6 +5,7 @@ import * as React from "react";
 import { X } from "lucide-react";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 
 function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root {...props} />;
@@ -57,9 +58,12 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
-  closeLabel = "Close",
+  closeLabel: closeLabelProp,
   ...props
 }: DialogContentProps) {
+  const t = useT();
+  const closeLabel = closeLabelProp ?? t("dialog.close");
+
   return (
     <DialogPortal>
       <DialogOverlay />

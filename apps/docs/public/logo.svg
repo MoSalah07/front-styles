@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="788" height="128" viewBox="0 0 197 32" role="img" aria-labelledby="design-eg-logo-title">
+  <title id="design-eg-logo-title">design-eg</title>
+  <desc>The design-eg lockup: a crimson tile with a knocked-out E, beside the wordmark DESIGN-EG.</desc>
+  <!--
+    Standalone copy of components/brand-logo.tsx, for use outside the app.
+    Loaded as an <img> there is no inherited colour to follow, so the wordmark
+    picks its own ink from the viewer's colour scheme instead of currentColor.
+  -->
+  <style>
+    @media (prefers-color-scheme: dark) { .wordmark { stroke: #fafafa; } }
+  </style>
+  <path fill="#e50914" fill-rule="evenodd" d="M7 0 H25 A7 7 0 0 1 32 7 V25 A7 7 0 0 1 25 32 H7 A7 7 0 0 1 0 25 V7 A7 7 0 0 1 7 0 Z M8.5 7.5 H23.5 V11.5 H12.5 V14 H19.5 V18 H12.5 V20.5 H23.5 V24.5 H8.5 Z"/>
+  <g class="wordmark" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter">
+    <path transform="translate(46 0)" d="M2.5 24.5 V7.5 H7 A5.5 5.5 0 0 1 12.5 13 V19 A5.5 5.5 0 0 1 7 24.5 Z"/>
+    <path transform="translate(66 0)" d="M2.5 5 V27 M2.5 7.5 H13 M2.5 16 H11 M2.5 24.5 H13"/>
+    <path transform="translate(84 0)" d="M10.5 11.4 C10.5 8.9 8.7 7.5 6.5 7.5 C4.3 7.5 2.5 9.1 2.5 11.2 C2.5 15.6 10.5 14.9 10.5 19.9 C10.5 22.8 8.7 24.5 6.5 24.5 C4.3 24.5 2.5 23.1 2.5 20.9"/>
+    <path transform="translate(102 0)" d="M2.5 5 V27"/>
+    <path transform="translate(112 0)" d="M12.5 12.5 A5 5 0 0 0 7.5 7.5 A5 5 0 0 0 2.5 12.5 V19.5 A5 5 0 0 0 7.5 24.5 A5 5 0 0 0 12.5 19.5 V17 H8.5"/>
+    <path transform="translate(132 0)" d="M2.5 27 V5 L10.5 27 V5"/>
+    <path transform="translate(150 0)" d="M0 16 H9"/>
+    <path transform="translate(164 0)" d="M2.5 5 V27 M2.5 7.5 H13 M2.5 16 H11 M2.5 24.5 H13"/>
+    <path transform="translate(182 0)" d="M12.5 12.5 A5 5 0 0 0 7.5 7.5 A5 5 0 0 0 2.5 12.5 V19.5 A5 5 0 0 0 7.5 24.5 A5 5 0 0 0 12.5 19.5 V17 H8.5"/>
+  </g>
+</svg>

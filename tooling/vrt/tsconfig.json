@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@design-eg/typescript-config/node-library.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "declaration": false
+  },
+  "include": ["*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules", "test-results", "playwright-report"]
+}

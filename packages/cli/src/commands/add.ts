@@ -23,7 +23,7 @@ interface AddOptions {
  * that canonical prefix onto whatever folders the project configured, so a
  * project using src/app/_components still gets its files in the right place.
  */
-function targetFor(
+export function targetFor(
   file: RegistryFile,
   item: RegistryItem,
   paths: { ui: string; lib: string; hooks: string },

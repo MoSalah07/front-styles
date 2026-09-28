@@ -1,0 +1,56 @@
+name: Lighthouse
+
+# Ranking follows real performance, and an accessible component library that
+# ships an inaccessible documentation site is not credible. The budgets in
+# .lighthouserc.json are the contract; this job enforces them.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "apps/docs/**"
+      - "packages/tokens/**"
+      - "packages/ui/**"
+      - ".lighthouserc.json"
+      - ".github/workflows/lighthouse.yml"
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: performance · a11y · seo budgets
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # The docs build depends on the tokens, the library and the registry, so
+      # a full build is what actually gets audited.
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+
+      - name: Run Lighthouse CI
+        run: pnpm dlx @lhci/cli@0.15.x autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 14
+          if-no-files-found: ignore

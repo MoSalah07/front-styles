@@ -1,6 +1,9 @@
+"use client";
+
 /** Site footer with a brand blurb, column groups of links, a social and legal row, and a copyright line, each group its own navigation landmark. */
 import * as React from "react";
 import { cn } from "../lib/cn";
+import { useT } from "../lib/i18n";
 import { Separator } from "../components/separator";
 
 export interface SiteFooterLink {
@@ -56,11 +59,15 @@ function SiteFooter({
   social = [],
   legal = [],
   copyright = `\u00A9 ${new Date().getFullYear()}`,
-  socialLabel = "Social",
-  legalLabel = "Legal",
+  socialLabel: socialLabelProp,
+  legalLabel: legalLabelProp,
   children,
   ...props
 }: SiteFooterProps) {
+  const t = useT();
+  const socialLabel = socialLabelProp ?? t("siteFooter.social");
+  const legalLabel = legalLabelProp ?? t("siteFooter.legal");
+
   return (
     <footer
       data-slot="site-footer"

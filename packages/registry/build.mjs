@@ -49,6 +49,9 @@ function registryDeps(source) {
     if (!spec.startsWith(".")) continue;
     const name = basename(spec).replace(/\.(tsx?|jsx?)$/, "");
     if (name === "cn" || name === "utils") continue;
+    // The catalogues travel inside the i18n item rather than as items of their
+    // own, so an import of them is not a dependency the CLI can resolve.
+    if (name === "messages") continue;
     deps.add(name);
   }
   return [...deps].sort();
@@ -61,6 +64,7 @@ function registryDeps(source) {
 function rewriteImports(source) {
   return source
     .replace(/(["'])(?:\.\.?\/)*lib\/cn\1/g, '"@/lib/utils"')
+    .replace(/(["'])(?:\.\.?\/)*lib\/i18n\1/g, '"@/lib/i18n"')
     .replace(/(["'])(?:\.\.?\/)*hooks\/([a-z0-9-]+)\1/g, '"@/hooks/$2"')
     .replace(/(["'])(?:\.\.\/)+components\/([a-z0-9-]+)\1/g, '"@/components/ui/$2"')
     .replace(/(["'])(?:\.\.\/)+blocks\/([a-z0-9-]+)\1/g, '"@/components/blocks/$2"')
@@ -103,6 +107,40 @@ items.push({
   files: [
     { path: "lib/utils.ts", type: "registry:lib", content: cnSource, target: "lib/utils.ts" },
   ],
+});
+
+// i18n — the provider plus the four catalogues. One item rather than six,
+// because a catalogue on its own does nothing and the CLI would have to pull
+// all of them anyway. `use-locale` is a separate item, so it is a dependency.
+const I18N_FILES = [
+  "lib/i18n.tsx",
+  "lib/messages/index.ts",
+  "lib/messages/types.ts",
+  "lib/messages/en.ts",
+  "lib/messages/ar.ts",
+  "lib/messages/fr.ts",
+  "lib/messages/hi.ts",
+];
+const i18nSources = I18N_FILES.map((path) => ({
+  path,
+  source: readFileSync(join(uiSrc, path), "utf8"),
+}));
+items.push({
+  $schema: "https://ui.shadcn.com/schema/registry-item.json",
+  name: "i18n",
+  type: "registry:lib",
+  title: "I18n",
+  description: fileDocComment(i18nSources[0].source),
+  dependencies: [...new Set(i18nSources.flatMap(({ source }) => externalDeps(source)))].sort(),
+  registryDependencies: ["use-locale"],
+  files: i18nSources.map(({ path, source }) => ({
+    path,
+    type: "registry:lib",
+    // Only the hooks import crosses out of lib/; the catalogue imports are
+    // relative to each other and stay correct once the folder is copied whole.
+    content: source.replace(/(["'])(?:\.\.?\/)*hooks\/([a-z0-9-]+)\1/g, '"@/hooks/$2"'),
+    target: path,
+  })),
 });
 
 const GROUPS = [

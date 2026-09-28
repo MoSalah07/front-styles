@@ -1,0 +1,88 @@
+name: Bug report
+description: Something in the tokens, a component, the CLI or the registry behaves wrongly.
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: check that you are on the latest version, and that the
+        problem is not an override in your own stylesheet.
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@design-eg/ui"
+        - "@design-eg/tokens"
+        - "@design-eg/cli"
+        - "@design-eg/mcp"
+        - registry JSON
+        - documentation site
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The exact version from your lockfile, not the range in package.json.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component or command
+      placeholder: "Dialog, or `design-eg add button`"
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: >
+        A minimal snippet, or a link to a repository or sandbox. Code blocks are
+        formatted automatically, no backticks needed.
+      render: tsx
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: conditions
+    attributes:
+      label: Conditions it reproduces under
+      description: Check every one you have confirmed. This is usually the fastest route to the cause.
+      options:
+        - label: Light theme
+        - label: Dark theme
+        - label: LTR
+        - label: RTL (`dir="rtl"`)
+        - label: A non-default brand (`data-brand`)
+        - label: A non-default density (`data-density`)
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: React, Next.js (or the bundler), Tailwind, Node, browser and OS versions.
+      render: text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the existing issues and this is not a duplicate.
+          required: true
+        - label: This is a bug, not a styling question or a feature request.
+          required: true

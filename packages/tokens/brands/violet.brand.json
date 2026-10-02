@@ -1,0 +1,40 @@
+{
+  "$schema": "../brand.schema.json",
+  "name": "violet",
+  "label": "Violet",
+  "default": false,
+  "description": "Electric purple for gaming and live-streaming communities: dark-first, near-black surfaces, tight corners.",
+  "seed": "#9146FF",
+  "status": {
+    "success": "#12B76A",
+    "warning": "#F79009",
+    "danger": "#D92D20",
+    "info": "#2E90FA"
+  },
+  "neutral": {
+    "tint": 0.008,
+    "anchors": {
+      "800": "#2A2A30",
+      "850": "#1F1F23",
+      "900": "#18181B",
+      "925": "#131316",
+      "950": "#0E0E10",
+      "975": "#09090B"
+    }
+  },
+  "radius": "0.25rem",
+  "fonts": {
+    "body": "\"Geist\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "ar": "\"Cairo\", \"Segoe UI\", Tahoma, Arial, sans-serif",
+    "hi": "\"Noto Sans Devanagari\", \"Nirmala UI\", Mangal, ui-sans-serif, system-ui, sans-serif",
+    "title": "\"Geist\", ui-sans-serif, system-ui, sans-serif",
+    "code": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+  },
+  "overrides": {
+    "light": {},
+    "dark": {
+      "primary-hover": "{brand.+1}",
+      "primary-active": "{brand.+2}"
+    }
+  }
+}

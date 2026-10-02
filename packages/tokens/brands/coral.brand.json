@@ -1,0 +1,43 @@
+{
+  "$schema": "../brand.schema.json",
+  "name": "coral",
+  "label": "Coral",
+  "default": false,
+  "description": "Warm pink-red for marketplaces and travel: friendly and light-first, with rounded corners and white type on coral calls to action.",
+  "seed": "#FF385C",
+  "status": {
+    "success": "#12B76A",
+    "warning": "#F79009",
+    "danger": "#D92D20",
+    "info": "#2E90FA"
+  },
+  "neutral": {
+    "tint": 0.005
+  },
+  "radius": "0.625rem",
+  "fonts": {
+    "body": "\"Geist\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "ar": "\"Cairo\", \"Segoe UI\", Tahoma, Arial, sans-serif",
+    "hi": "\"Noto Sans Devanagari\", \"Nirmala UI\", Mangal, ui-sans-serif, system-ui, sans-serif",
+    "title": "\"Geist\", ui-sans-serif, system-ui, sans-serif",
+    "code": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+  },
+  "overrides": {
+    "light": {
+      "primary": "{brand.+1}",
+      "primary-foreground": "{on:brand.+1}",
+      "primary-hover": "{brand.+2}",
+      "primary-active": "{brand.+3}",
+      "sidebar-primary": "{brand.+1}",
+      "sidebar-primary-foreground": "{on:brand.+1}"
+    },
+    "dark": {
+      "primary": "{brand.+1}",
+      "primary-foreground": "{on:brand.+1}",
+      "primary-hover": "{brand}",
+      "primary-active": "{brand.+2}",
+      "sidebar-primary": "{brand.+1}",
+      "sidebar-primary-foreground": "{on:brand.+1}"
+    }
+  }
+}

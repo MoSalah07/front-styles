@@ -119,6 +119,10 @@ const defaultBrands: SettingsPageBrandOption[] = [
   { value: "ember", label: "Ember" },
   { value: "forest", label: "Forest" },
   { value: "slate", label: "Slate" },
+  { value: "iris", label: "Iris" },
+  { value: "violet", label: "Violet" },
+  { value: "jade", label: "Jade" },
+  { value: "coral", label: "Coral" },
   { value: "neutral", label: "Neutral" },
 ];
 

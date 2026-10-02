@@ -85,7 +85,18 @@ test.describe("token layer", () => {
    * ramp shows up here and nowhere else, since the contrast audit only proves
    * the pairs pass, not that they still look like the brand.
    */
-  for (const brand of ["crimson", "ocean", "ember", "forest", "slate", "neutral"]) {
+  for (const brand of [
+    "crimson",
+    "ocean",
+    "ember",
+    "forest",
+    "slate",
+    "iris",
+    "violet",
+    "jade",
+    "coral",
+    "neutral",
+  ]) {
     test(`swatches in ${brand}`, async ({ page }) => {
       await preset(page, { theme: "dark", brand });
       await page.goto("/en#tokens");

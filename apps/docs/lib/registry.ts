@@ -50,6 +50,9 @@ const COMPONENT_GROUPS: Record<string, string> = {
   "toggle-group": "Forms",
   form: "Forms",
   "input-otp": "Forms",
+  combobox: "Forms",
+  calendar: "Forms",
+  "date-picker": "Forms",
 
   dialog: "Overlays",
   "alert-dialog": "Overlays",
@@ -67,6 +70,7 @@ const COMPONENT_GROUPS: Record<string, string> = {
   breadcrumb: "Navigation",
   pagination: "Navigation",
   "scroll-area": "Navigation",
+  "navigation-menu": "Navigation",
 
   table: "Data display",
   card: "Data display",
@@ -75,6 +79,7 @@ const COMPONENT_GROUPS: Record<string, string> = {
   separator: "Data display",
   skeleton: "Data display",
   progress: "Data display",
+  carousel: "Data display",
 
   alert: "Feedback",
   sonner: "Feedback",

@@ -29,7 +29,8 @@ pnpm add @design-eg/tokens
 
 - `data-brand` selects a compiled brand (`crimson` is the default and needs no attribute).
   Shipped: `crimson` (red), `ocean` (blue), `ember` (orange), `forest` (green),
-  `slate` (grey) and `neutral` (monochrome).
+  `slate` (grey), `iris` (indigo), `violet` (purple), `jade` (bright green),
+  `coral` (pink-red) and `neutral` (monochrome).
 - `.dark` / `.light` or `data-theme="dark|light"` switch modes and can be nested (a dark hero inside a light page).
 - `data-density="compact|comfortable|spacious"` scales control heights.
 
@@ -49,7 +50,7 @@ Create `brands/<name>.brand.json`:
 
 ```json
 {
-  "name": "violet",
+  "name": "plum",
   "seed": "#7C3AED",
   "radius": "0.75rem",
   "neutral": { "tint": 0.008 },

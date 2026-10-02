@@ -278,12 +278,12 @@ Everything is driven by attributes on `<html>`:
 <html class="dark" data-brand="crimson" data-density="comfortable" dir="rtl" lang="ar"></html>
 ```
 
-| Attribute              | Values                                                                 |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `class` / `data-theme` | `light`, `dark` (nestable, so a dark hero can sit inside a light page) |
-| `data-brand`           | `crimson` (default), `ocean`, `ember`, `forest`, `slate`, `neutral`    |
-| `data-density`         | `compact`, `comfortable`, `spacious`                                   |
-| `dir`                  | `ltr`, `rtl`                                                           |
+| Attribute              | Values                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| `class` / `data-theme` | `light`, `dark` (nestable, so a dark hero can sit inside a light page)                                 |
+| `data-brand`           | `crimson` (default), `ocean`, `ember`, `forest`, `slate`, `iris`, `violet`, `jade`, `coral`, `neutral` |
+| `data-density`         | `compact`, `comfortable`, `spacious`                                                                   |
+| `dir`                  | `ltr`, `rtl`                                                                                           |
 
 Switching any of them is a one-line DOM write — no provider, no context, no
 re-render:
@@ -320,18 +320,22 @@ script, with each other, and with a second tab. `useTheme()` returns
 
 ### Brands
 
-Six brands ship compiled. Each is one JSON seed in
+Ten brands ship compiled. Each is one JSON seed in
 [`packages/tokens/brands`](./packages/tokens/brands) — the ramps, the light and
 dark maps and the contrast audit are all derived from it.
 
-| `data-brand` | Seed      | Identity                                               |
-| ------------ | --------- | ------------------------------------------------------ |
-| `crimson`    | `#E50914` | Cinematic dark-first red on near-black. The default.   |
-| `ocean`      | `#1D4ED8` | High-trust product blue for enterprise SaaS.           |
-| `ember`      | `#EA580C` | Warm commerce orange for energetic calls to action.    |
-| `forest`     | `#15803D` | Deep green for finance and health. Steady, never neon. |
-| `slate`      | `#475569` | Cool grey for dense tools — colour is spent on data.   |
-| `neutral`    | `#171717` | Monochrome. Colour is reserved for status only.        |
+| `data-brand` | Seed      | Identity                                                  |
+| ------------ | --------- | --------------------------------------------------------- |
+| `crimson`    | `#E50914` | Cinematic dark-first red on near-black. The default.      |
+| `ocean`      | `#1D4ED8` | High-trust product blue for enterprise SaaS.              |
+| `ember`      | `#EA580C` | Warm commerce orange for energetic calls to action.       |
+| `forest`     | `#15803D` | Deep green for finance and health. Steady, never neon.    |
+| `slate`      | `#475569` | Cool grey for dense tools — colour is spent on data.      |
+| `iris`       | `#635BFF` | Crisp indigo-violet for developer platforms and payments. |
+| `violet`     | `#9146FF` | Dark-first electric purple for gaming and live streaming. |
+| `jade`       | `#1DB954` | Bright green on near-black for music and audio apps.      |
+| `coral`      | `#FF385C` | Friendly warm pink-red for marketplaces and travel.       |
+| `neutral`    | `#171717` | Monochrome. Colour is reserved for status only.           |
 
 Every one of them clears WCAG AA on all 32 audited text pairs, in light and in
 dark. Swapping brands never changes a component — only the values the tokens
@@ -610,7 +614,7 @@ publishes `@design-eg/tokens`, `@design-eg/ui`, `@design-eg/cli` and
 
 ## Roadmap
 
-Built: tokens and theming with six brands, the full primitive set, the dashboard
+Built: tokens and theming with ten brands, the full primitive set, the dashboard
 kit, the marketing blocks, the page templates, the CLI and registry, the MCP
 server, the documentation site in four languages, and the quality gates above.
 

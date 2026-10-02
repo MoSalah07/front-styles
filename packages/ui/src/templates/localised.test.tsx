@@ -5,10 +5,12 @@ import { ar } from "../lib/messages/ar";
 import { fr } from "../lib/messages/fr";
 import { hi } from "../lib/messages/hi";
 import { ForgotPassword } from "./forgot-password";
+import { LoginPhone } from "./login-phone";
 import { LoginSplit } from "./login-split";
 import { NotFoundPage } from "./error-pages";
 import { OtpVerify } from "./otp-verify";
 import { Register } from "./register";
+import { RegisterWizard } from "./register-wizard";
 
 /**
  * The templates are where a half-wired catalogue shows up: they carry most of
@@ -81,6 +83,46 @@ describe("templates under a provider", () => {
         <Register />
       </I18nProvider>,
     );
+    expect(screen.getByText(ar["register.strengthHint"] as string)).toBeInTheDocument();
+  });
+
+  it("renders the phone sign-in in Arabic, keeping the number left to right", () => {
+    render(
+      <I18nProvider locale="ar">
+        <LoginPhone />
+      </I18nProvider>,
+    );
+    expect(screen.getByRole("heading", { name: ar["loginPhone.title"] as string })).toBeVisible();
+    expect(screen.getByLabelText(ar["loginPhone.phoneLabel"] as string)).toHaveAttribute(
+      "dir",
+      "ltr",
+    );
+    expect(
+      screen.getByRole("combobox", { name: new RegExp(ar["loginPhone.countryLabel"] as string) }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: ar["loginPhone.requestCode"] as string }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the register wizard in Arabic", () => {
+    render(
+      <I18nProvider locale="ar">
+        <RegisterWizard />
+      </I18nProvider>,
+    );
+    expect(
+      screen.getByRole("navigation", { name: ar["registerWizard.progressLabel"] as string }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("الخطوة 1 من 3")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: ar["registerWizard.accountTitle"] as string }),
+    ).toBeVisible();
+    expect(screen.getByLabelText(ar["registerWizard.emailLabel"] as string)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: ar["registerWizard.next"] as string }),
+    ).toBeInTheDocument();
+    // The strength meter shares Register's wording.
     expect(screen.getByText(ar["register.strengthHint"] as string)).toBeInTheDocument();
   });
 

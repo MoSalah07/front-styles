@@ -69,6 +69,13 @@ export {
 } from "./components/breadcrumb";
 export { Button, buttonVariants, type ButtonProps } from "./components/button";
 export {
+  Calendar,
+  type CalendarProps,
+  type CalendarRangeProps,
+  type CalendarSingleProps,
+  type DateRange,
+} from "./components/calendar";
+export {
   Card,
   CardAction,
   CardContent,
@@ -77,6 +84,21 @@ export {
   CardHeader,
   CardTitle,
 } from "./components/card";
+export {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  useCarousel,
+  type CarouselApi,
+  type CarouselButtonProps,
+  type CarouselContentProps,
+  type CarouselDotsProps,
+  type CarouselItemProps,
+  type CarouselProps,
+} from "./components/carousel";
 export { Checkbox, type CheckboxProps } from "./components/checkbox";
 export {
   Collapsible,
@@ -84,6 +106,13 @@ export {
   CollapsibleTrigger,
   type CollapsibleProps,
 } from "./components/collapsible";
+export {
+  Combobox,
+  type ComboboxMultipleProps,
+  type ComboboxOption,
+  type ComboboxProps,
+  type ComboboxSingleProps,
+} from "./components/combobox";
 export {
   Command,
   CommandDialog,
@@ -118,6 +147,12 @@ export {
   type ContextMenuSubTriggerProps,
 } from "./components/context-menu";
 export { CopyButton, type CopyButtonProps } from "./components/copy-button";
+export {
+  DatePicker,
+  type DatePickerProps,
+  type DatePickerRangeProps,
+  type DatePickerSingleProps,
+} from "./components/date-picker";
 export {
   Dialog,
   DialogClose,
@@ -179,6 +214,25 @@ export {
 } from "./components/input-otp";
 export { Input, type InputProps } from "./components/input";
 export { Label, type LabelProps } from "./components/label";
+export {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+  type NavigationMenuContentProps,
+  type NavigationMenuIndicatorProps,
+  type NavigationMenuItemProps,
+  type NavigationMenuLinkProps,
+  type NavigationMenuListProps,
+  type NavigationMenuProps,
+  type NavigationMenuTriggerProps,
+  type NavigationMenuViewportProps,
+} from "./components/navigation-menu";
 export {
   Pagination,
   PaginationContent,
@@ -378,6 +432,12 @@ export {
   type PricingTierProps,
 } from "./blocks/pricing-table";
 export {
+  ProductCard,
+  type ProductCardImage,
+  type ProductCardProps,
+  type ProductCardTitleTag,
+} from "./blocks/product-card";
+export {
   SiteFooter,
   type SiteFooterGroup,
   type SiteFooterLink,
@@ -413,6 +473,23 @@ export { ThemeSelect, type ThemeSelectLabels, type ThemeSelectProps } from "./bl
 
 // templates
 export {
+  AdminDashboard,
+  type AdminDashboardActivity,
+  type AdminDashboardChannel,
+  type AdminDashboardCustomer,
+  type AdminDashboardDate,
+  type AdminDashboardKpi,
+  type AdminDashboardOrder,
+  type AdminDashboardOrderAction,
+  type AdminDashboardOrderStatus,
+  type AdminDashboardProduct,
+  type AdminDashboardProps,
+  type AdminDashboardRange,
+  type AdminDashboardRevenuePoint,
+  type AdminDashboardStats,
+  type AdminDashboardTone,
+} from "./templates/admin-dashboard";
+export {
   DashboardShell,
   type DashboardShellMenuItem,
   type DashboardShellNavGroup,
@@ -428,10 +505,58 @@ export {
 } from "./templates/error-pages";
 export { ForgotPassword, type ForgotPasswordProps } from "./templates/forgot-password";
 export {
+  LANDING_SAAS_SECTION_IDS,
+  LandingSaas,
+  type LandingSaasAction,
+  type LandingSaasCodeProps,
+  type LandingSaasFeaturesProps,
+  type LandingSaasHeading,
+  type LandingSaasHeroProps,
+  type LandingSaasLogosProps,
+  type LandingSaasPricingProps,
+  type LandingSaasProps,
+  type LandingSaasSection,
+  type LandingSaasStatsProps,
+  type LandingSaasStep,
+  type LandingSaasStepsProps,
+  type LandingSaasTestimonialsProps,
+  type LandingSaasTier,
+} from "./templates/landing-saas";
+export {
+  LANDING_STORE_SECTION_IDS,
+  LandingStore,
+  type LandingStoreAction,
+  type LandingStoreCategoriesProps,
+  type LandingStoreCategory,
+  type LandingStoreHeaderProps,
+  type LandingStoreHeroProps,
+  type LandingStoreNewsletterProps,
+  type LandingStoreProduct,
+  type LandingStoreProductsProps,
+  type LandingStoreProps,
+  type LandingStoreSection,
+  type LandingStoreValueProp,
+  type LandingStoreValuePropsProps,
+} from "./templates/landing-store";
+export {
+  LandingStreaming,
+  type LandingStreamingFeature,
+  type LandingStreamingProps,
+  type LandingStreamingRow,
+  type LandingStreamingTitle,
+} from "./templates/landing-streaming";
+export {
   LoginCentered,
   type LoginCenteredProps,
   type LoginCenteredValues,
 } from "./templates/login-centered";
+export {
+  LoginPhone,
+  loginPhoneToE164,
+  type LoginPhoneCountry,
+  type LoginPhoneProps,
+  type LoginPhoneStep,
+} from "./templates/login-phone";
 export {
   LoginSplit,
   type LoginSplitPoint,
@@ -439,6 +564,13 @@ export {
   type LoginSplitValues,
 } from "./templates/login-split";
 export { OtpVerify, otpMaskDestination, type OtpVerifyProps } from "./templates/otp-verify";
+export {
+  RegisterWizard,
+  type RegisterWizardOption,
+  type RegisterWizardProps,
+  type RegisterWizardStep,
+  type RegisterWizardValues,
+} from "./templates/register-wizard";
 export {
   Register,
   registerPasswordScore,

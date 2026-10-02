@@ -1,0 +1,48 @@
+{
+  "$schema": "../brand.schema.json",
+  "name": "jade",
+  "label": "Jade",
+  "default": false,
+  "description": "Vivid green on near-black for music and audio apps: one bright accent, dark type on green buttons, softer corners.",
+  "seed": "#1DB954",
+  "status": {
+    "success": "#12B76A",
+    "warning": "#F79009",
+    "danger": "#D92D20",
+    "info": "#2E90FA"
+  },
+  "neutral": {
+    "tint": 0,
+    "anchors": {
+      "800": "#282828",
+      "850": "#1F1F1F",
+      "900": "#181818",
+      "925": "#151515",
+      "950": "#121212"
+    }
+  },
+  "radius": "0.625rem",
+  "fonts": {
+    "body": "\"Geist\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif",
+    "ar": "\"Cairo\", \"Segoe UI\", Tahoma, Arial, sans-serif",
+    "hi": "\"Noto Sans Devanagari\", \"Nirmala UI\", Mangal, ui-sans-serif, system-ui, sans-serif",
+    "title": "\"Geist\", ui-sans-serif, system-ui, sans-serif",
+    "code": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+  },
+  "overrides": {
+    "light": {
+      "primary": "{brand.+1}",
+      "primary-foreground": "{on:brand.+1}",
+      "primary-hover": "{brand}",
+      "primary-active": "{brand.+2}",
+      "ring": "{brand.+1}",
+      "brand": "{brand.+1}",
+      "brand-foreground": "{on:brand.+1}",
+      "sidebar-primary": "{brand.+1}",
+      "sidebar-primary-foreground": "{on:brand.+1}",
+      "sidebar-ring": "{brand.+1}",
+      "chart-1": "{brand.+1}"
+    },
+    "dark": {}
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@design-eg/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design tokens for design-eg: brand seeds compiled into a 3-tier CSS variable system (primitives → semantic → component) with light/dark modes, multi-brand theming and WCAG contrast checks at build time.",
   "license": "MIT",
   "type": "module",

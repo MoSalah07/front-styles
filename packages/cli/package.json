@@ -1,6 +1,6 @@
 {
   "name": "@design-eg/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "CLI for design-eg: scaffold the tokens + Tailwind setup and copy components into your project from the registry.",
   "license": "MIT",
   "type": "module",
